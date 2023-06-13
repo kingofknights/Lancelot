@@ -30,3 +30,15 @@
 *.exe
 *.out
 *.app
+
+# Build Folders
+Build
+build
+Resources/Screenshot
+Features
+
+#User files
+*.user
+.idea
+.vcode
+.vs
