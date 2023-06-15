@@ -2,10 +2,10 @@
 // Created by VIKLOD on 15-06-2023.
 //
 
-#include "../include/ContractInfo.hpp"
+#include "Lancelot/ContractInfo.hpp"
 
-#include "../include/ContractFetcher.hpp"
-#include "../include/StoreProcedures.hpp"
+#include "Lancelot/ContractFetcher.hpp"
+#include "Lancelot/StoreProcedures.hpp"
 namespace Lancelot {
 
 static ResultSetContainerT ResultSetContainer;

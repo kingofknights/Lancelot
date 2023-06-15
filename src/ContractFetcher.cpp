@@ -1,6 +1,6 @@
-#include "../include/ContractFetcher.hpp"
+#include "Lancelot/ContractFetcher.hpp"
 
-#include "../include/Logger.hpp"
+#include "Lancelot/Logger.hpp"
 
 namespace Lancelot {
 ContractFetcher::ContractFetcher(const std::string& name_) : _database(name_, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE) { printMetaData(name_); }
