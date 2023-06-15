@@ -6,7 +6,7 @@ AlignConsecutiveDeclarations: Consecutive
 AlignTrailingComments: true
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: All
-AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortIfStatementsOnASingleLine: true
 AllowShortLoopsOnASingleLine: true
 BreakStringLiterals: true
 ColumnLimit: 200
