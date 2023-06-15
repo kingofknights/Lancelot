@@ -1,3 +1,5 @@
+#ifndef LANCELOT_INCLUDE_STORE_PROCEDURES_HPP
+#define LANCELOT_INCLUDE_STORE_PROCEDURES_HPP
 #pragma once
 
 inline constexpr char createdb_[] =
@@ -120,7 +122,7 @@ inline constexpr char GetNoticeToken_[] =
 	" WHERE"
 	" T1.ExpiryDate ={} AND"
 	" T1.Symbol={} AND"
-	" T1.StrikePrice={} AND
+	" T1.StrikePrice={} AND"
 	" T1.OptionType={}";
 
 inline constexpr char StrikeRange[] =
@@ -167,3 +169,6 @@ inline constexpr char GetFuture_[] =
 inline constexpr char GetClientCode_[]		= "SELECT Exchange, ClientCode FROM ManageClientCode WHERE  UserId = {}";
 inline constexpr char GetStrategyList_[]	= "SELECT Name FROM Strategy";
 inline constexpr char GetStrategyColumns_[] = "SELECT data FROM Strategy WHERE Name='{}'";
+inline constexpr char GetResultSet_[]		= "SELECT * FROM ResultSet;";
+
+#endif	// LANCELOT_INCLUDE_STORE_PROCEDURES_HPP

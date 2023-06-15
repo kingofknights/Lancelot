@@ -1,14 +1,11 @@
-#include "../include/Contract.hpp"
-
-#include <SQLiteCpp/SQLiteCpp.h>
-
-#include <future>
+#include "../include/ContractFetcher.hpp"
 
 #include "../include/Logger.hpp"
 
 namespace Lancelot {
+ContractFetcher::ContractFetcher(const std::string& name_) : _database(name_, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE) { printMetaData(name_); }
 
-void Contract::printMetaData(const std::string& name_) {
+void ContractFetcher::printMetaData(const std::string& name_) {
 	const SQLite::Header header = SQLite::Database::getHeaderInfo(name_);
 	LOG(INFO, "SQLite Metadata -> Magic header string: {}", header.headerStr);
 	LOG(INFO, "SQLite Metadata -> Page size bytes: {}", header.pageSizeBytes);
@@ -34,30 +31,26 @@ void Contract::printMetaData(const std::string& name_) {
 	LOG(INFO, "SQLite Metadata -> SQLite version: {}", header.sqliteVersion);
 }
 
-TableT Contract::GetResult(const std::string& query_) {
-	SQLite::Statement query(*_database, query_);
+TableT ContractFetcher::GetResult(const std::string& query_) {
+	SQLite::Statement query(_database, query_);
 	TableT			  table;
 	while (query.executeStep()) {
 		RowT row;
 		for (int i = 0; i < query.getColumnCount(); i++) {
-			row.push_back(query.getColumn(i).getString());
+			row.emplace(query.getColumnName(i), query.getColumn(i).getString());
 		}
 		table.push_back(row);
 	}
 	return table;
 }
 
-void Contract::ExecuteQuery(const std::string& query_) {
+void ContractFetcher::ExecuteQuery(const std::string& query_) {
 	try {
-		SQLite::Statement query(*_database, query_);
+		SQLite::Statement query(_database, query_);
 		query.executeStep();
 	} catch (std::exception& ex_) {
 		LOG(ERROR, "{} {}", __FUNCTION__, ex_.what())
 	}
-}
-void Contract::Initialize(const std::string& name_) {
-	_database = std::make_unique<SQLite::Database>(name_, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
-	printMetaData(name_);
 }
 
 }  // namespace Lancelot
