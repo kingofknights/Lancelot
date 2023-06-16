@@ -2,10 +2,10 @@
 // Created by VIKLOD on 15-06-2023.
 //
 
-#include "Lancelot/ContractInfo.hpp"
+#include "Lancelot/ContractInfo/ContractInfo.hpp"
 
-#include "Lancelot/ContractFetcher.hpp"
-#include "Lancelot/StoreProcedures.hpp"
+#include "Lancelot/ContractInfo/ContractFetcher.hpp"
+#include "Lancelot/ContractInfo/StoreProcedures.hpp"
 #include "Lancelot/Structure.hpp"
 
 namespace Lancelot {
@@ -46,7 +46,7 @@ Exchange GetExchangeCode(const std::string& exchange_) {
 	return Exchange_END;
 }
 
-void LoadResultSetTable(const TableT& table_) {
+void LoadResultSetTable(const TableWithColumnNameT& table_) {
 	for (const auto& row : table_) {
 		auto* resultSetPtr = new ResultSetT;
 		for (const auto& cell : row) {
@@ -69,21 +69,21 @@ void LoadResultSetTable(const TableT& table_) {
 	}
 }
 
-void LoadFutureOptionTable(const TableT& table_) {
+void LoadFutureOptionTable(const TableWithColumnIndexT& table_) {
 	for (const auto& row : table_) {
-		int option = std::stoi(row.at("option"));
-		int future = std::stoi(row.at("future"));
+		int option = std::stoi(row.at(0));
+		int future = std::stoi(row.at(1));
 		TokenToFutureToken.emplace(option, future);
 	}
 }
 void ContractInfo::Initialize(const std::string& name_) {
 	ContractFetcher contractFetcher(name_);
 
-	auto table = contractFetcher.GetResult(GetResultSet_);
-	LoadResultSetTable(table);
+	auto table1 = contractFetcher.GetResultWithColumnName(GetResultSet_);
+	LoadResultSetTable(table1);
 
-	table = contractFetcher.GetResult(GetFuture_);
-	LoadFutureOptionTable(table);
+	auto table2 = contractFetcher.GetResultWithColumnIndex(GetFuture_);
+	LoadFutureOptionTable(table2);
 }
 
 ResultSetPtrT ContractInfo::GetResultSet(uint32_t token_) {
@@ -91,7 +91,7 @@ ResultSetPtrT ContractInfo::GetResultSet(uint32_t token_) {
 	if (iterator != ResultSetContainer.end()) {
 		return iterator->second;
 	}
-	return {};
+	return nullptr;
 }
 GET_RESULT_SET(uint32_t, ExpiryDate)
 GET_RESULT_SET(uint32_t, LotMultiple)
