@@ -153,7 +153,7 @@ inline constexpr char GetOptionChain_[] =
 	" LIMIT 10";
 
 inline constexpr char GetFuture_[] =
-	"SELECT T2.Token, T1.Token FROM ResultSet T1"
+	"SELECT T2.Token AS option, T1.Token AS future FROM ResultSet T1"
 	" INNER JOIN ResultSet T2 ON T1.InstType="
 	" (CASE "
 	" WHEN T2.InstType ='OPTIDX' THEN 'FUTIDX'"

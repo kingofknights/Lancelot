@@ -9,8 +9,12 @@
 #include "Lancelot/Structure.hpp"
 
 namespace Lancelot {
+
 using ResultSetContainerT = std::unordered_map<uint32_t, ResultSetPtrT>;
+using TokenToFutureTokenT = std::unordered_map<uint32_t, uint32_t>;
+
 static ResultSetContainerT ResultSetContainer;
+static TokenToFutureTokenT TokenToFutureToken;
 
 #define GET_RESULT_SET(TYPE, FIELD)                      \
 	TYPE ContractInfo::Get##FIELD(uint32_t token_) {     \
@@ -42,10 +46,8 @@ Exchange GetExchangeCode(const std::string& exchange_) {
 	return Exchange_END;
 }
 
-void ContractInfo::Initialize(const std::string& name_) {
-	ContractFetcher contractFetcher(name_);
-	auto			table = contractFetcher.GetResult(GetResultSet_);
-	for (const auto& row : table) {
+void LoadResultSetTable(const TableT& table_) {
+	for (const auto& row : table_) {
 		auto* resultSetPtr = new ResultSetT;
 		for (const auto& cell : row) {
 			if (cell.first == "Segment") resultSetPtr->Segment = cell.second;
@@ -65,6 +67,23 @@ void ContractInfo::Initialize(const std::string& name_) {
 		resultSetPtr->StrikePrice /= resultSetPtr->Divisor;
 		ResultSetContainer.emplace(resultSetPtr->Token, resultSetPtr);
 	}
+}
+
+void LoadFutureOptionTable(const TableT& table_) {
+	for (const auto& row : table_) {
+		int option = std::stoi(row.at("option"));
+		int future = std::stoi(row.at("future"));
+		TokenToFutureToken.emplace(option, future);
+	}
+}
+void ContractInfo::Initialize(const std::string& name_) {
+	ContractFetcher contractFetcher(name_);
+
+	auto table = contractFetcher.GetResult(GetResultSet_);
+	LoadResultSetTable(table);
+
+	table = contractFetcher.GetResult(GetFuture_);
+	LoadFutureOptionTable(table);
 }
 
 ResultSetPtrT ContractInfo::GetResultSet(uint32_t token_) {
@@ -89,4 +108,33 @@ GET_RESULT_SET(std::string, Name)
 GET_RESULT_SET(std::string, Description)
 
 #undef GET_RESULT_SET
+
+uint32_t ContractInfo::GetFuture(uint32_t token_) {
+	const auto iterator = TokenToFutureToken.find(token_);
+	if (iterator != TokenToFutureToken.cend()) {
+		return iterator->second;
+	}
+	return token_;
+}
+
+bool ContractInfo::IsOption(uint32_t token_) {
+	return GetInstType(token_) == Instrument_OPTION;
+}
+
+bool ContractInfo::IsEquity(uint32_t token_) {
+	return GetInstType(token_) == Instrument_EQUITY;
+}
+
+bool ContractInfo::IsCall(uint32_t token_) {
+	return GetOption(token_) == OptionType_CALL;
+}
+
+bool ContractInfo::IsPut(uint32_t token_) {
+	return GetOption(token_) == OptionType_PUT;
+}
+
+bool ContractInfo::IsFuture(uint32_t token_) {
+	return GetInstType(token_) == Instrument_FUTURE;
+}
+
 }  // namespace Lancelot
