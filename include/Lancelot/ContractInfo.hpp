@@ -5,9 +5,15 @@
 #ifndef LANCELOT_INCLUDE_CONTRACT_INFO_HPP
 #define LANCELOT_INCLUDE_CONTRACT_INFO_HPP
 
-#include "Structure.hpp"
+#include <string>
 
 namespace Lancelot {
+enum Exchange;
+enum Instrument;
+enum OptionType;
+struct ResultSetT;
+using ResultSetPtrT = const ResultSetT*;
+
 class ContractInfo {
 public:
 	static void			 Initialize(const std::string& name_);
@@ -24,6 +30,7 @@ public:
 	static std::string	 GetSymbol(uint32_t token_);
 	static std::string	 GetSegment(uint32_t token_);
 	static std::string	 GetName(uint32_t token_);
+	static std::string	 GetDescription(uint32_t token_);
 };
 }  // namespace Lancelot
 

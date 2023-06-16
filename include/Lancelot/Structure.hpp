@@ -9,7 +9,8 @@
 
 namespace Lancelot {
 
-enum Exchange {
+enum Exchange
+{
 	Exchange_NSE_FUTURE = 0,
 	Exchange_NSE_EQUITY,
 	Exchange_NSE_CURRENCY,
@@ -18,14 +19,16 @@ enum Exchange {
 	Exchange_END
 };
 
-enum Instrument {
+enum Instrument
+{
 	Instrument_FUTURE = 0,
 	Instrument_OPTION,
 	Instrument_EQUITY,
 	Instrument_OTHER
 };
 
-enum OptionType {
+enum OptionType
+{
 	OptionType_NONE = 0,
 	OptionType_CALL,
 	OptionType_PUT,
@@ -46,11 +49,9 @@ using ResultSetT = struct ResultSetT {
 	std::string Symbol;
 	std::string Segment;
 	std::string Name;
+	std::string Description;
 };
 #pragma pack(pop)
-
-using ResultSetPtrT		  = std::shared_ptr<ResultSetT>;
-using ResultSetContainerT = std::unordered_map<uint32_t, ResultSetPtrT>;
 
 }  // namespace Lancelot
 

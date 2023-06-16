@@ -6,8 +6,10 @@
 
 #include "Lancelot/ContractFetcher.hpp"
 #include "Lancelot/StoreProcedures.hpp"
-namespace Lancelot {
+#include "Lancelot/Structure.hpp"
 
+namespace Lancelot {
+using ResultSetContainerT = std::unordered_map<uint32_t, ResultSetPtrT>;
 static ResultSetContainerT ResultSetContainer;
 
 #define GET_RESULT_SET(TYPE, FIELD)                      \
@@ -44,7 +46,7 @@ void ContractInfo::Initialize(const std::string& name_) {
 	ContractFetcher contractFetcher(name_);
 	auto			table = contractFetcher.GetResult(GetResultSet_);
 	for (const auto& row : table) {
-		ResultSetPtrT resultSetPtr = std::make_shared<ResultSetT>();
+		auto* resultSetPtr = new ResultSetT;
 		for (const auto& cell : row) {
 			if (cell.first == "Segment") resultSetPtr->Segment = cell.second;
 			if (cell.first == "Token") resultSetPtr->Token = std::stoi(cell.second);
@@ -58,6 +60,7 @@ void ContractInfo::Initialize(const std::string& name_) {
 			if (cell.first == "Name") resultSetPtr->Name = cell.second;
 			if (cell.first == "Divisor") resultSetPtr->Divisor = std::stoi(cell.second);
 			if (cell.first == "Exchange") resultSetPtr->Exchange = GetExchangeCode(cell.second);
+			if (cell.first == "Description") resultSetPtr->Description = cell.second;
 		}
 		resultSetPtr->StrikePrice /= resultSetPtr->Divisor;
 		ResultSetContainer.emplace(resultSetPtr->Token, resultSetPtr);
@@ -83,6 +86,7 @@ GET_RESULT_SET(Exchange, Exchange)
 GET_RESULT_SET(std::string, Symbol)
 GET_RESULT_SET(std::string, Segment)
 GET_RESULT_SET(std::string, Name)
+GET_RESULT_SET(std::string, Description)
 
 #undef GET_RESULT_SET
 }  // namespace Lancelot
