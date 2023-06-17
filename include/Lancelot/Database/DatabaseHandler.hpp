@@ -2,17 +2,24 @@
 #define LANCELOT_INCLUDE_DATABASE_HANDLER_HPP
 
 #pragma once
-#include <mysql/jdbc.h>
+
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 namespace sql {
 class Driver;
 class Connection;
 class Statement;
 class ResultSet;
+class SQLException;
 }  // namespace sql
 
 namespace Lancelot {
-
+using RowWithColumnNameT	= std::unordered_map<std::string, std::string>;
+using RowWithColumnIndexT	= std::vector<std::string>;
+using TableWithColumnNameT	= std::vector<RowWithColumnNameT>;
+using TableWithColumnIndexT = std::vector<RowWithColumnIndexT>;
 class DatabaseHandler {
 public:
 	static DatabaseHandler &GetInstance();

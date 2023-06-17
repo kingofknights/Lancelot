@@ -1,5 +1,7 @@
 #include "Lancelot/Database/DatabaseHandler.hpp"
 
+#include <mysql/jdbc.h>
+
 #include "Lancelot/Logger/Logger.hpp"
 namespace Lancelot {
 
@@ -27,7 +29,7 @@ void DatabaseHandler::SetSchema(const std::string &schema_) {
 
 void DatabaseHandler::ManageException(sql::SQLException &e) {
 	if (e.getErrorCode() != 0) {
-		LOG(ERROR, "{} Error {} (MySQL error code: {}), SQLState: {}", e.what(), e.getErrorCode(), e.getSQLState())
+		LOG(ERROR, "Error {} (MySQL error code: {})", e.what(), e.getErrorCode())
 	}
 }
 
@@ -44,7 +46,7 @@ void DatabaseHandler::RunTransactionQuery(const std::string &query_) {
 sql::ResultSet *DatabaseHandler::RunNonTransactionQuery(const std::string &query_) {
 	try {
 		if (!query_.empty()) {
-			auto result = _statement->executeQuery(query_);
+			auto *result = _statement->executeQuery(query_);
 			return result;
 		}
 	} catch (sql::SQLException &e) {

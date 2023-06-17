@@ -10,12 +10,12 @@
 #define SQLITE_ENABLE_COLUMN_METADATA
 #include <SQLiteCpp/SQLiteCpp.h>
 
+namespace Lancelot {
 using RowWithColumnNameT	= std::unordered_map<std::string, std::string>;
 using RowWithColumnIndexT	= std::vector<std::string>;
 using TableWithColumnNameT	= std::vector<RowWithColumnNameT>;
 using TableWithColumnIndexT = std::vector<RowWithColumnIndexT>;
 
-namespace Lancelot {
 class ContractFetcher final {
 public:
 	explicit ContractFetcher(const std::string &name_);

@@ -16,7 +16,7 @@ find_package(fmt REQUIRED)
 
 set(MYSQL_ROOT "C:/Program Files/MySQL/Connector C++ 8.0")
 set(MYSQL_INCLUDE_DIR ${MYSQL_ROOT}/include)
-set(MYSQL_LIBS_DIR ${MYSQL_ROOT}/lib64)
+set(MYSQL_LIBS_DIR ${MYSQL_ROOT}/lib64/vs14)
 
 message(STATUS ${MYSQL_INCLUDE_DIR})
 message(STATUS ${MYSQL_LIBS_DIR})
@@ -37,4 +37,4 @@ add_library(${PROJECT_NAME}
 		src/DatabaseHandler.cpp
 	    )
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_libraries(${PROJECT_NAME} PUBLIC fmt::fmt SQLiteCpp)
+target_link_libraries(${PROJECT_NAME} PUBLIC fmt::fmt SQLiteCpp mysqlcppconn)
