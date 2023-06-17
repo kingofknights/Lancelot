@@ -5,6 +5,7 @@
 #ifndef LANCELOT_INCLUDE_CONTRACT_INFO_HPP
 #define LANCELOT_INCLUDE_CONTRACT_INFO_HPP
 
+#include <functional>
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -14,15 +15,16 @@ enum Exchange;
 enum Instrument;
 enum OptionType;
 struct ResultSetT;
-using ResultSetPtrT			= const ResultSetT*;
-using RowWithColumnNameT	= std::unordered_map<std::string, std::string>;
-using RowWithColumnIndexT	= std::vector<std::string>;
-using TableWithColumnNameT	= std::vector<RowWithColumnNameT>;
-using TableWithColumnIndexT = std::vector<RowWithColumnIndexT>;
+using ResultSetPtrT				= const ResultSetT*;
+using RowWithColumnNameT		= std::unordered_map<std::string, std::string>;
+using RowWithColumnIndexT		= std::vector<std::string>;
+using TableWithColumnNameT		= std::vector<RowWithColumnNameT>;
+using TableWithColumnIndexT		= std::vector<RowWithColumnIndexT>;
+using ResultSetLoadingCallbackT = std::function<void(ResultSetPtrT)>;
 
 class ContractInfo {
 public:
-	static void			 Initialize(const std::string& name_);
+	static void			 Initialize(const std::string& name_, const ResultSetLoadingCallbackT& callback_);
 	static ResultSetPtrT GetResultSet(uint32_t token_);
 
 	static uint32_t GetExpiryDate(uint32_t token_);

@@ -48,7 +48,7 @@ Exchange GetExchangeCode(const std::string& exchange_) {
 	return Exchange_END;
 }
 
-void LoadResultSetTable(const TableWithColumnNameT& table_) {
+void LoadResultSetTable(const TableWithColumnNameT& table_, const ResultSetLoadingCallbackT& callback_) {
 	for (const auto& row : table_) {
 		auto* resultSetPtr = new ResultSetT;
 		for (const auto& cell : row) {
@@ -68,6 +68,7 @@ void LoadResultSetTable(const TableWithColumnNameT& table_) {
 		}
 		resultSetPtr->StrikePrice /= resultSetPtr->Divisor;
 		ResultSetContainer.emplace(resultSetPtr->Token, resultSetPtr);
+		if (callback_) callback_(resultSetPtr);
 	}
 }
 
@@ -78,11 +79,11 @@ void LoadFutureOptionTable(const TableWithColumnIndexT& table_) {
 		TokenToFutureToken.emplace(option, future);
 	}
 }
-void ContractInfo::Initialize(const std::string& name_) {
+void ContractInfo::Initialize(const std::string& name_, const ResultSetLoadingCallbackT& callback_) {
 	contractFetcher = new ContractFetcher(name_);
 
 	auto table1 = contractFetcher->GetResultWithColumnName(GetResultSet_);
-	LoadResultSetTable(table1);
+	LoadResultSetTable(table1, callback_);
 
 	auto table2 = contractFetcher->GetResultWithColumnIndex(GetFuture_);
 	LoadFutureOptionTable(table2);
