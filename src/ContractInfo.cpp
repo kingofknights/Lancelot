@@ -103,6 +103,19 @@ GET_RESULT_SET(std::string, Description)
 
 #undef GET_RESULT_SET
 
+uint32_t ContractInfo::GetOppositeToken(uint32_t token_) {
+	std::string		  name	   = GetDescription(token_);
+	bool			  isCall_  = IsCall(token_);
+	const std::string call_put = isCall_ ? "CE" : "PE";
+	const std::string reverse  = isCall_ ? "PE" : "CE";
+	size_t			  pos	   = name.find(call_put);
+	if (pos != std::string::npos) {
+		name.replace(pos, call_put.length(), reverse);
+		return GetToken(name);
+	}
+	return 0;
+}
+
 uint32_t ContractInfo::GetFuture(uint32_t token_) {
 	const auto iterator = TokenToFutureToken.find(token_);
 	if (iterator != TokenToFutureToken.cend()) {

@@ -33,6 +33,7 @@ public:
 	static uint32_t GetTickSize(uint32_t token_);
 	static uint32_t GetDivisor(uint32_t token_);
 	static uint32_t GetFuture(uint32_t token_);
+	static uint32_t GetOppositeToken(uint32_t token_);
 	static float	GetStrikePrice(uint32_t token_);
 
 	static Instrument GetInstType(uint32_t token_);
