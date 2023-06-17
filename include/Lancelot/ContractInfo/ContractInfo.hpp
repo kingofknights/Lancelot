@@ -48,7 +48,7 @@ public:
 	static bool IsPut(uint32_t token_);
 	static bool IsFuture(uint32_t token_);
 
-	static void					 ExceuteQuery(const std::string& query_);
+	static void					 ExecuteQuery(const std::string& query_);
 	static TableWithColumnIndexT GetResultWithIndex(const std::string& query_);
 	static TableWithColumnNameT	 GetResultWithName(const std::string& query_);
 };

@@ -139,7 +139,7 @@ bool ContractInfo::IsFuture(uint32_t token_) {
 	return GetInstType(token_) == Instrument_FUTURE;
 }
 
-void ContractInfo::ExceuteQuery(const std::string& query_) {
+void ContractInfo::ExecuteQuery(const std::string& query_) {
 	contractFetcher->ExecuteQuery(query_);
 }
 
