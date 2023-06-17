@@ -65,6 +65,7 @@ void LoadResultSetTable(const TableWithColumnNameT& table_, const ResultSetLoadi
 			if (cell.first == "Divisor") resultSetPtr->Divisor = std::stoi(cell.second);
 			if (cell.first == "Exchange") resultSetPtr->Exchange = GetExchangeCode(cell.second);
 			if (cell.first == "Description") resultSetPtr->Description = cell.second;
+			if (cell.first == "StrikePrice") resultSetPtr->StrikePrice = std::stod(cell.second);
 		}
 		{
 			std::stringstream ss;
