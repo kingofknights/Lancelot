@@ -66,6 +66,14 @@ void LoadResultSetTable(const TableWithColumnNameT& table_, const ResultSetLoadi
 			if (cell.first == "Exchange") resultSetPtr->Exchange = GetExchangeCode(cell.second);
 			if (cell.first == "Description") resultSetPtr->Description = cell.second;
 		}
+		{
+			std::stringstream ss;
+			ss << (resultSetPtr->StrikePrice < 0 ? "FUT" : "OPT");
+			ss << ' ' << resultSetPtr->Symbol;
+			if (resultSetPtr->StrikePrice > 0) ss << ' ' << (resultSetPtr->StrikePrice) << ' ' << (resultSetPtr->Option == OptionType_CALL ? "CE" : "PE");
+			ss << ' ' << FORMAT("{:%d%b}", fmt::localtime(resultSetPtr->ExpiryDate));
+			resultSetPtr->Description = ss.str();
+		}
 		resultSetPtr->StrikePrice /= resultSetPtr->Divisor;
 		ResultSetContainer.emplace(resultSetPtr->Token, resultSetPtr);
 		if (callback_) callback_(resultSetPtr);
