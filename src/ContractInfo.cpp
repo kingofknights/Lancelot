@@ -6,6 +6,7 @@
 
 #include "Lancelot/ContractInfo/ContractFetcher.hpp"
 #include "Lancelot/ContractInfo/StoreProcedures.hpp"
+#include "Lancelot/Logger/Logger.hpp"
 #include "Lancelot/Structure.hpp"
 
 namespace Lancelot {
@@ -15,6 +16,7 @@ using TokenToFutureTokenT = std::unordered_map<uint32_t, uint32_t>;
 
 static ResultSetContainerT ResultSetContainer;
 static TokenToFutureTokenT TokenToFutureToken;
+static ContractFetcher*	   contractFetcher = nullptr;
 
 #define GET_RESULT_SET(TYPE, FIELD)                      \
 	TYPE ContractInfo::Get##FIELD(uint32_t token_) {     \
@@ -77,12 +79,12 @@ void LoadFutureOptionTable(const TableWithColumnIndexT& table_) {
 	}
 }
 void ContractInfo::Initialize(const std::string& name_) {
-	ContractFetcher contractFetcher(name_);
+	contractFetcher = new ContractFetcher(name_);
 
-	auto table1 = contractFetcher.GetResultWithColumnName(GetResultSet_);
+	auto table1 = contractFetcher->GetResultWithColumnName(GetResultSet_);
 	LoadResultSetTable(table1);
 
-	auto table2 = contractFetcher.GetResultWithColumnIndex(GetFuture_);
+	auto table2 = contractFetcher->GetResultWithColumnIndex(GetFuture_);
 	LoadFutureOptionTable(table2);
 }
 
@@ -135,6 +137,18 @@ bool ContractInfo::IsPut(uint32_t token_) {
 
 bool ContractInfo::IsFuture(uint32_t token_) {
 	return GetInstType(token_) == Instrument_FUTURE;
+}
+
+void ContractInfo::ExceuteQuery(const std::string& query_) {
+	contractFetcher->ExecuteQuery(query_);
+}
+
+TableWithColumnIndexT ContractInfo::GetResultWithIndex(const std::string& query_) {
+	return contractFetcher->GetResultWithColumnIndex(query_);
+}
+
+TableWithColumnNameT ContractInfo::GetResultWithName(const std::string& query_) {
+	return contractFetcher->GetResultWithColumnName(query_);
 }
 
 }  // namespace Lancelot

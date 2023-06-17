@@ -13,3 +13,5 @@
 #define LOG_ERROR(format, ...) fmt::print(stderr, fmt::fg(fmt::color::red), "{:%Y-%m-%d %H:%M:%S} " format "\n", fmt::localtime(std::time(0)), __VA_ARGS__);
 
 #define LOG_WARNING(format, ...) fmt::print(stderr, fmt::fg(fmt::color::purple), "{:%Y-%m-%d %H:%M:%S} " format "\n", fmt::localtime(std::time(0)), __VA_ARGS__);
+
+#define FORMAT(args, ...) fmt::format(args, __VA_ARGS__)

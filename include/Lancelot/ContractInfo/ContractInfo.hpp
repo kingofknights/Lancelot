@@ -6,13 +6,19 @@
 #define LANCELOT_INCLUDE_CONTRACT_INFO_HPP
 
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 namespace Lancelot {
 enum Exchange;
 enum Instrument;
 enum OptionType;
 struct ResultSetT;
-using ResultSetPtrT = const ResultSetT*;
+using ResultSetPtrT			= const ResultSetT*;
+using RowWithColumnNameT	= std::unordered_map<std::string, std::string>;
+using RowWithColumnIndexT	= std::vector<std::string>;
+using TableWithColumnNameT	= std::vector<RowWithColumnNameT>;
+using TableWithColumnIndexT = std::vector<RowWithColumnIndexT>;
 
 class ContractInfo {
 public:
@@ -41,7 +47,12 @@ public:
 	static bool IsCall(uint32_t token_);
 	static bool IsPut(uint32_t token_);
 	static bool IsFuture(uint32_t token_);
+
+	static void					 ExceuteQuery(const std::string& query_);
+	static TableWithColumnIndexT GetResultWithIndex(const std::string& query_);
+	static TableWithColumnNameT	 GetResultWithName(const std::string& query_);
 };
+
 }  // namespace Lancelot
 
 #endif	// LANCELOT_INCLUDE_CONTRACT_INFO_HPP
