@@ -11,12 +11,14 @@
 
 namespace Lancelot {
 
-using ResultSetContainerT = std::unordered_map<uint32_t, ResultSetPtrT>;
-using TokenToFutureTokenT = std::unordered_map<uint32_t, uint32_t>;
+using ResultSetContainerT	= std::unordered_map<uint32_t, ResultSetPtrT>;
+using TokenToFutureTokenT	= std::unordered_map<uint32_t, uint32_t>;
+using NameToTokenContainerT = std::unordered_map<std::string, uint32_t>;
 
-static ResultSetContainerT ResultSetContainer;
-static TokenToFutureTokenT TokenToFutureToken;
-static ContractFetcher*	   contractFetcher = nullptr;
+static ResultSetContainerT	 ResultSetContainer;
+static TokenToFutureTokenT	 TokenToFutureToken;
+static NameToTokenContainerT NameToTokenContainer;
+static ContractFetcher*		 contractFetcher = nullptr;
 
 #define GET_RESULT_SET(TYPE, FIELD)                      \
 	TYPE ContractInfo::Get##FIELD(uint32_t token_) {     \
@@ -82,11 +84,16 @@ void ContractInfo::Initialize(const std::string& name_, const ResultSetLoadingCa
 
 ResultSetPtrT ContractInfo::GetResultSet(uint32_t token_) {
 	auto iterator = ResultSetContainer.find(token_);
-	if (iterator != ResultSetContainer.end()) {
-		return iterator->second;
-	}
+	if (iterator != ResultSetContainer.end()) return iterator->second;
 	return nullptr;
 }
+
+uint32_t ContractInfo::GetToken(const std::string& name_) {
+	auto iterator = NameToTokenContainer.find(name_);
+	if (iterator != NameToTokenContainer.cend()) return iterator->second;
+	return 0;
+}
+
 GET_RESULT_SET(uint32_t, ExpiryDate)
 GET_RESULT_SET(uint32_t, LotMultiple)
 GET_RESULT_SET(uint32_t, LotSize)
@@ -100,7 +107,6 @@ GET_RESULT_SET(std::string, Symbol)
 GET_RESULT_SET(std::string, Segment)
 GET_RESULT_SET(std::string, Name)
 GET_RESULT_SET(std::string, Description)
-
 #undef GET_RESULT_SET
 
 uint32_t ContractInfo::GetOppositeToken(uint32_t token_) {
@@ -118,9 +124,7 @@ uint32_t ContractInfo::GetOppositeToken(uint32_t token_) {
 
 uint32_t ContractInfo::GetFuture(uint32_t token_) {
 	const auto iterator = TokenToFutureToken.find(token_);
-	if (iterator != TokenToFutureToken.cend()) {
-		return iterator->second;
-	}
+	if (iterator != TokenToFutureToken.cend()) return iterator->second;
 	return token_;
 }
 

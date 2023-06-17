@@ -27,6 +27,7 @@ public:
 	static void			 Initialize(const std::string& name_, const ResultSetLoadingCallbackT& callback_);
 	static ResultSetPtrT GetResultSet(uint32_t token_);
 
+	static uint32_t GetToken(const std::string& name_);
 	static uint32_t GetExpiryDate(uint32_t token_);
 	static uint32_t GetLotMultiple(uint32_t token_);
 	static uint32_t GetLotSize(uint32_t token_);
