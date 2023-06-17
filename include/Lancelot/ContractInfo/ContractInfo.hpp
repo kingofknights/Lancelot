@@ -20,7 +20,7 @@ using RowWithColumnNameT		= std::unordered_map<std::string, std::string>;
 using RowWithColumnIndexT		= std::vector<std::string>;
 using TableWithColumnNameT		= std::vector<RowWithColumnNameT>;
 using TableWithColumnIndexT		= std::vector<RowWithColumnIndexT>;
-using ResultSetLoadingCallbackT = std::function<void(ResultSetPtrT)>;
+using ResultSetLoadingCallbackT = std::function<void(ResultSetPtrT, float, float, float)>;
 
 class ContractInfo {
 public:

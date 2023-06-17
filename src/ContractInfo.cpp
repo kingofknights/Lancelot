@@ -29,23 +29,24 @@ static ContractFetcher*	   contractFetcher = nullptr;
 
 void LoadResultSetTable(const TableWithColumnNameT& table_, const ResultSetLoadingCallbackT& callback_) {
 	for (const auto& row : table_) {
-		auto* resultSetPtr = new ResultSetT;
-		for (const auto& cell : row) {
-			if (cell.first == "Segment") resultSetPtr->Segment = cell.second;
-			if (cell.first == "Token") resultSetPtr->Token = std::stoi(cell.second);
-			if (cell.first == "Symbol") resultSetPtr->Symbol = cell.second;
-			if (cell.first == "ExpiryDate") resultSetPtr->ExpiryDate = std::stoi(cell.second);
-			if (cell.first == "InstType") resultSetPtr->InstType = ContractInfo::GetInstrumentType(cell.second);
-			if (cell.first == "OptionType") resultSetPtr->Option = ContractInfo::GetOptionType(cell.second);
-			if (cell.first == "LotMultiple") resultSetPtr->LotMultiple = std::stoi(cell.second);
-			if (cell.first == "LotSize") resultSetPtr->LotSize = std::stoi(cell.second);
-			if (cell.first == "TickSize") resultSetPtr->TickSize = std::stoi(cell.second);
-			if (cell.first == "Name") resultSetPtr->Name = cell.second;
-			if (cell.first == "Divisor") resultSetPtr->Divisor = std::stoi(cell.second);
-			if (cell.first == "Exchange") resultSetPtr->Exchange = ContractInfo::GetExchangeCode(cell.second);
-			if (cell.first == "Description") resultSetPtr->Description = cell.second;
-			if (cell.first == "StrikePrice") resultSetPtr->StrikePrice = std::stod(cell.second);
-		}
+		auto* resultSetPtr		  = new ResultSetT;
+		resultSetPtr->Segment	  = row.at("Segment");
+		resultSetPtr->Token		  = std::stoi(row.at("Token"));
+		resultSetPtr->Symbol	  = row.at("Symbol");
+		resultSetPtr->ExpiryDate  = std::stoi(row.at("ExpiryDate"));
+		resultSetPtr->InstType	  = ContractInfo::GetInstrumentType(row.at("InstType"));
+		resultSetPtr->Option	  = ContractInfo::GetOptionType(row.at("OptionType"));
+		resultSetPtr->LotMultiple = std::stoi(row.at("LotMultiple"));
+		resultSetPtr->LotSize	  = std::stoi(row.at("LotSize"));
+		resultSetPtr->TickSize	  = std::stoi(row.at("TickSize"));
+		resultSetPtr->Name		  = row.at("Name");
+		resultSetPtr->Divisor	  = std::stoi(row.at("Divisor"));
+		resultSetPtr->Exchange	  = ContractInfo::GetExchangeCode(row.at("Exchange"));
+		resultSetPtr->StrikePrice = std::stof(row.at("StrikePrice"));
+		float close				  = std::stof(row.at("Close")) / resultSetPtr->Divisor;
+		float lowDPR			  = std::stof(row.at("LowDPR")) / resultSetPtr->Divisor;
+		float highDPR			  = std::stof(row.at("HighDPR")) / resultSetPtr->Divisor;
+
 		{
 			std::stringstream ss;
 			ss << (resultSetPtr->StrikePrice < 0 ? "FUT" : "OPT");
@@ -56,7 +57,9 @@ void LoadResultSetTable(const TableWithColumnNameT& table_, const ResultSetLoadi
 		}
 		resultSetPtr->StrikePrice /= resultSetPtr->Divisor;
 		ResultSetContainer.emplace(resultSetPtr->Token, resultSetPtr);
-		if (callback_) callback_(resultSetPtr);
+		if (callback_) {
+			callback_(resultSetPtr, close, lowDPR, highDPR);
+		}
 	}
 }
 
