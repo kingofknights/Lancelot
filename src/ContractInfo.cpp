@@ -59,6 +59,7 @@ void LoadResultSetTable(const TableWithColumnNameT& table_, const ResultSetLoadi
 		}
 		resultSetPtr->StrikePrice /= resultSetPtr->Divisor;
 		ResultSetContainer.emplace(resultSetPtr->Token, resultSetPtr);
+		NameToTokenContainer.emplace(resultSetPtr->Description, resultSetPtr->Token);
 		if (callback_) {
 			callback_(resultSetPtr, close, lowDPR, highDPR);
 		}
