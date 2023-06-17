@@ -27,27 +27,6 @@ static ContractFetcher*	   contractFetcher = nullptr;
 		return TYPE{};                                   \
 	}
 
-OptionType GetOptionType(const std::string& option_) {
-	if (option_ == "CE") return OptionType_CALL;
-	if (option_ == "PE") return OptionType_PUT;
-	return OptionType_NONE;
-}
-
-Instrument GetInstrumentType(const std::string& type_) {
-	if (type_.starts_with("FUT")) return Instrument_FUTURE;
-	if (type_.starts_with("OPT")) return Instrument_OPTION;
-	return Instrument_EQUITY;
-}
-
-Exchange GetExchangeCode(const std::string& exchange_) {
-	if (exchange_ == "NSE_FO") return Exchange_NSE_FUTURE;
-	if (exchange_ == "NSE_EQ") return Exchange_NSE_EQUITY;
-	if (exchange_ == "NSE_CD") return Exchange_NSE_CURRENCY;
-	if (exchange_ == "BSE_FO") return Exchange_BSE_FUTURE;
-	if (exchange_ == "BSE_CD") return Exchange_BSE_CURRENCY;
-	return Exchange_END;
-}
-
 void LoadResultSetTable(const TableWithColumnNameT& table_, const ResultSetLoadingCallbackT& callback_) {
 	for (const auto& row : table_) {
 		auto* resultSetPtr = new ResultSetT;
@@ -56,14 +35,14 @@ void LoadResultSetTable(const TableWithColumnNameT& table_, const ResultSetLoadi
 			if (cell.first == "Token") resultSetPtr->Token = std::stoi(cell.second);
 			if (cell.first == "Symbol") resultSetPtr->Symbol = cell.second;
 			if (cell.first == "ExpiryDate") resultSetPtr->ExpiryDate = std::stoi(cell.second);
-			if (cell.first == "InstType") resultSetPtr->InstType = GetInstrumentType(cell.second);
-			if (cell.first == "OptionType") resultSetPtr->Option = GetOptionType(cell.second);
+			if (cell.first == "InstType") resultSetPtr->InstType = ContractInfo::GetInstrumentType(cell.second);
+			if (cell.first == "OptionType") resultSetPtr->Option = ContractInfo::GetOptionType(cell.second);
 			if (cell.first == "LotMultiple") resultSetPtr->LotMultiple = std::stoi(cell.second);
 			if (cell.first == "LotSize") resultSetPtr->LotSize = std::stoi(cell.second);
 			if (cell.first == "TickSize") resultSetPtr->TickSize = std::stoi(cell.second);
 			if (cell.first == "Name") resultSetPtr->Name = cell.second;
 			if (cell.first == "Divisor") resultSetPtr->Divisor = std::stoi(cell.second);
-			if (cell.first == "Exchange") resultSetPtr->Exchange = GetExchangeCode(cell.second);
+			if (cell.first == "Exchange") resultSetPtr->Exchange = ContractInfo::GetExchangeCode(cell.second);
 			if (cell.first == "Description") resultSetPtr->Description = cell.second;
 			if (cell.first == "StrikePrice") resultSetPtr->StrikePrice = std::stod(cell.second);
 		}
@@ -161,4 +140,24 @@ TableWithColumnNameT ContractInfo::GetResultWithName(const std::string& query_) 
 	return contractFetcher->GetResultWithColumnName(query_);
 }
 
+OptionType ContractInfo::GetOptionType(const std::string& option_) {
+	if (option_ == "CE") return OptionType_CALL;
+	if (option_ == "PE") return OptionType_PUT;
+	return OptionType_NONE;
+}
+
+Instrument ContractInfo::GetInstrumentType(const std::string& type_) {
+	if (type_.starts_with("FUT")) return Instrument_FUTURE;
+	if (type_.starts_with("OPT")) return Instrument_OPTION;
+	return Instrument_EQUITY;
+}
+
+Exchange ContractInfo::GetExchangeCode(const std::string& exchange_) {
+	if (exchange_ == "NSE_FO") return Exchange_NSE_FUTURE;
+	if (exchange_ == "NSE_EQ") return Exchange_NSE_EQUITY;
+	if (exchange_ == "NSE_CD") return Exchange_NSE_CURRENCY;
+	if (exchange_ == "BSE_FO") return Exchange_BSE_FUTURE;
+	if (exchange_ == "BSE_CD") return Exchange_BSE_CURRENCY;
+	return Exchange_END;
+}
 }  // namespace Lancelot

@@ -53,6 +53,10 @@ public:
 	static void					 ExecuteQuery(const std::string& query_);
 	static TableWithColumnIndexT GetResultWithIndex(const std::string& query_);
 	static TableWithColumnNameT	 GetResultWithName(const std::string& query_);
+
+	static OptionType GetOptionType(const std::string& option_);
+	static Instrument GetInstrumentType(const std::string& type_);
+	static Exchange	  GetExchangeCode(const std::string& exchange_);
 };
 
 }  // namespace Lancelot
