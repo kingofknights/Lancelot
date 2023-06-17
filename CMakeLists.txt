@@ -37,4 +37,8 @@ add_library(${PROJECT_NAME}
 		src/DatabaseHandler.cpp
 	    )
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_libraries(${PROJECT_NAME} PUBLIC fmt::fmt SQLiteCpp mysqlcppconn)
+target_link_libraries(${PROJECT_NAME} PUBLIC fmt::fmt SQLiteCpp )
+
+add_executable(LancelotTest main.cpp)
+target_include_directories(LancelotTest PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(LancelotTest PUBLIC ${PROJECT_NAME} mysqlcppconn)
