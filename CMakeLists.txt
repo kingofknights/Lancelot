@@ -32,6 +32,7 @@ add_library(${PROJECT_NAME}
 		include/Lancelot/ContractInfo/ContractInfo.hpp
 		include/Lancelot/Structure.hpp
 		include/Lancelot/Database/DatabaseHandler.hpp
+		include/Lancelot.hpp
 		src/ContractFetcher.cpp
 		src/ContractInfo.cpp
 		src/DatabaseHandler.cpp
