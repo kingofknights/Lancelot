@@ -21,7 +21,6 @@ set(MYSQL_LIBS_DIR ${MYSQL_ROOT}/lib64/vs14)
 message(STATUS ${MYSQL_INCLUDE_DIR})
 message(STATUS ${MYSQL_LIBS_DIR})
 
-
 include_directories(${MYSQL_INCLUDE_DIR})
 link_directories(${MYSQL_LIBS_DIR})
 
@@ -39,7 +38,3 @@ add_library(${PROJECT_NAME}
 	    )
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME} PUBLIC fmt::fmt SQLiteCpp )
-
-add_executable(LancelotTest main.cpp)
-target_include_directories(LancelotTest PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_libraries(LancelotTest PUBLIC ${PROJECT_NAME} mysqlcppconn)
