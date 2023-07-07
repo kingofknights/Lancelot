@@ -18,7 +18,7 @@ void DatabaseHandler::InitConnection(const std::string &connection_, const std::
     } catch (sql::SQLException &e) {
         ManageException(e);
     } catch (...) {
-        LOG<ERROR>("Unknown exception occured...!");
+        LOG(ERROR, "Unknown exception occured...!", nullptr)
     }
 }
 
@@ -29,7 +29,7 @@ void DatabaseHandler::SetSchema(const std::string &schema_) {
 
 void DatabaseHandler::ManageException(sql::SQLException &e) {
     if (e.getErrorCode() != 0) {
-        LOG<ERROR>("Error {} (MySQL error code: {})", e.what(), e.getErrorCode());
+        LOG(ERROR, "Error {} (MySQL error code: {})", e.what(), e.getErrorCode())
     }
 }
 
