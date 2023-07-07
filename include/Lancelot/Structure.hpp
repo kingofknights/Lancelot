@@ -9,7 +9,7 @@
 
 namespace Lancelot {
 
-enum Exchange : int
+enum ExchangeCode : int
 {
     Exchange_NSE_FUTURE = 0,
     Exchange_NSE_EQUITY,
@@ -45,7 +45,7 @@ using ResultSetT = struct ResultSetT {
     float		StrikePrice;
     Instrument	InstType;
     OptionType	Option;
-    Exchange	Exchange;
+    ExchangeCode	Exchange;
     std::string Symbol;
     std::string Segment;
     std::string Name;

@@ -42,3 +42,8 @@ Features
 .idea
 .vcode
 .vs
+
+# Temp
+Lancelot/include/Database
+Lancelot/include/Database/DatabaseHandler.hpp
+src/DatabaseHandler.cpp

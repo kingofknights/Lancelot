@@ -103,7 +103,7 @@ GET_RESULT_SET(uint32_t, Divisor)
 GET_RESULT_SET(float, StrikePrice)
 GET_RESULT_SET(Instrument, InstType)
 GET_RESULT_SET(OptionType, Option)
-GET_RESULT_SET(Exchange, Exchange)
+GET_RESULT_SET(ExchangeCode, Exchange)
 GET_RESULT_SET(std::string, Symbol)
 GET_RESULT_SET(std::string, Segment)
 GET_RESULT_SET(std::string, Name)
@@ -173,7 +173,7 @@ Instrument ContractInfo::GetInstrumentType(const std::string& type_) {
 	return Instrument_EQUITY;
 }
 
-Exchange ContractInfo::GetExchangeCode(const std::string& exchange_) {
+ExchangeCode ContractInfo::GetExchangeCode(const std::string& exchange_) {
 	if (exchange_ == "NSE_FO") return Exchange_NSE_FUTURE;
 	if (exchange_ == "NSE_EQ") return Exchange_NSE_EQUITY;
 	if (exchange_ == "NSE_CD") return Exchange_NSE_CURRENCY;
