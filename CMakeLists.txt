@@ -10,11 +10,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-find_package(SQLiteCpp REQUIRED)
-find_package(fmt REQUIRED)
-
-include_directories(${MYSQL_INCLUDE_DIR})
-link_directories(${MYSQL_LIBS_DIR})
+find_package(SQLiteCpp CONFIG REQUIRED)
+find_package(fmt CONFIG REQUIRED)
 
 add_library(${PROJECT_NAME}
     include/Lancelot/Logger/Logger.hpp

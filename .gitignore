@@ -44,6 +44,6 @@ Features
 .vs
 
 # Temp
-Lancelot/include/Database
-Lancelot/include/Database/DatabaseHandler.hpp
-src/DatabaseHandler.cpp
+/include/Lancelot/Database
+/include/Lancelot/Database/DatabaseHandler.hpp
+/src/DatabaseHandler.cpp
