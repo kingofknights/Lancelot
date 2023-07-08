@@ -2,10 +2,9 @@
 #define LANCELOT_INCLUDE_STRUCTURE_HPP
 #pragma once
 
+#include <array>
 #include <cstdint>
-#include <memory>
-#include <string>
-#include <unordered_map>
+#include <ranges>
 
 namespace Lancelot {
 
@@ -13,24 +12,23 @@ namespace Lancelot {
 	enum OptionType : int;
 	enum ExchangeCode : int;
 
-#pragma pack(push, 1)
 	using ResultSetT = struct ResultSetT {
-		uint32_t	 Token;
-		uint32_t	 ExpiryDate;
-		uint32_t	 LotMultiple;
-		uint32_t	 LotSize;
-		uint32_t	 TickSize;
-		uint32_t	 Divisor;
-		float		 StrikePrice;
-		Instrument	 InstType;
-		OptionType	 Option;
-		ExchangeCode Exchange;
-		std::string	 Symbol;
-		std::string	 Segment;
-		std::string	 Name;
-		std::string	 Description;
+		uint32_t	 _token		  = 0;
+		uint32_t	 _expiryDate  = 0;
+		uint32_t	 _lotMultiple = 0;
+		uint32_t	 _lotSize	  = 0;
+		uint32_t	 _tickSize	  = 0;
+		uint32_t	 _divisor	  = 0;
+		Instrument	 _instType	  = Instrument_OTHER;
+		OptionType	 _option	  = OptionType_NONE;
+		ExchangeCode _exchange	  = Exchange_END;
+		float		 _strikePrice = 0;
+
+		std::string _symbol;
+		std::string _segment;
+		std::string _name;
+		std::string _description;
 	};
-#pragma pack(pop)
 
 }  // namespace Lancelot
 

@@ -4,6 +4,8 @@
 
 #include "Lancelot/ContractInfo/ContractInfo.hpp"
 
+#include <unordered_map>
+
 #include "Lancelot/ContractInfo/ContractFetcher.hpp"
 #include "Lancelot/ContractInfo/StoreProcedures.hpp"
 #include "Lancelot/Enums.hpp"
@@ -23,8 +25,8 @@ namespace Lancelot {
 		static ContractFetcher*		 contractFetcher = nullptr;
 	}  // namespace details
 
-#define GET_RESULT_SET(TYPE, FIELD)                               \
-	TYPE ContractInfo::Get##FIELD(uint32_t token_) {              \
+#define GET_RESULT_SET(TYPE, FUNCTION, FIELD)                     \
+	TYPE ContractInfo::Get##FUNCTION(uint32_t token_) {           \
 		auto iterator = details::ResultSetContainer.find(token_); \
 		if (iterator != details::ResultSetContainer.end()) {      \
 			return iterator->second->FIELD;                       \
@@ -34,35 +36,37 @@ namespace Lancelot {
 
 	void LoadResultSetTable(const TableWithColumnNameT& table_, const ResultSetLoadingCallbackT& callback_) {
 		for (const auto& row : table_) {
-			auto* resultSetPtr		  = new ResultSetT;
-			resultSetPtr->Segment	  = row.at("Segment");
-			resultSetPtr->Token		  = std::stoi(row.at("Token"));
-			resultSetPtr->Symbol	  = row.at("Symbol");
-			resultSetPtr->ExpiryDate  = std::stoi(row.at("ExpiryDate"));
-			resultSetPtr->InstType	  = ContractInfo::GetInstrumentType(row.at("InstType"));
-			resultSetPtr->Option	  = ContractInfo::GetOptionType(row.at("OptionType"));
-			resultSetPtr->LotMultiple = std::stoi(row.at("LotMultiple"));
-			resultSetPtr->LotSize	  = std::stoi(row.at("LotSize"));
-			resultSetPtr->TickSize	  = std::stoi(row.at("TickSize"));
-			resultSetPtr->Name		  = row.at("Name");
-			resultSetPtr->Divisor	  = std::stoi(row.at("Divisor"));
-			resultSetPtr->Exchange	  = ContractInfo::GetExchangeCode(row.at("Exchange"));
-			resultSetPtr->StrikePrice = std::stof(row.at("StrikePrice"));
-			float close				  = std::stof(row.at("Close")) / resultSetPtr->Divisor;
-			float lowDPR			  = std::stof(row.at("LowDPR")) / resultSetPtr->Divisor;
-			float highDPR			  = std::stof(row.at("HighDPR")) / resultSetPtr->Divisor;
+			auto* resultSetPtr = new ResultSetT;
+
+			resultSetPtr->_token	   = std::stoi(row.at("Token"));
+			resultSetPtr->_expiryDate  = std::stoi(row.at("ExpiryDate"));
+			resultSetPtr->_lotMultiple = std::stoi(row.at("LotMultiple"));
+			resultSetPtr->_lotSize	   = std::stoi(row.at("LotSize"));
+			resultSetPtr->_tickSize	   = std::stoi(row.at("TickSize"));
+			resultSetPtr->_divisor	   = std::stoi(row.at("Divisor"));
+			resultSetPtr->_option	   = Lancelot::ContractInfo::GetOptionType(row.at("OptionType"));
+			resultSetPtr->_instType	   = Lancelot::ContractInfo::GetInstrumentType(row.at("InstType"));
+			resultSetPtr->_exchange	   = Lancelot::ContractInfo::GetExchangeCode(row.at("Exchange"));
+			resultSetPtr->_strikePrice = std::stof(row.at("StrikePrice"));
+			resultSetPtr->_symbol	   = row.at("Symbol");
+			resultSetPtr->_segment	   = row.at("Segment");
+			resultSetPtr->_name		   = row.at("Name");
+
+			float close	  = std::stof(row.at("Close")) / resultSetPtr->_divisor;
+			float lowDPR  = std::stof(row.at("LowDPR")) / resultSetPtr->_divisor;
+			float highDPR = std::stof(row.at("HighDPR")) / resultSetPtr->_divisor;
 
 			{
 				std::stringstream ss;
-				ss << (resultSetPtr->StrikePrice < 0 ? "FUT" : "OPT");
-				ss << ' ' << resultSetPtr->Symbol;
-				if (resultSetPtr->StrikePrice > 0) ss << ' ' << (resultSetPtr->StrikePrice) << ' ' << (resultSetPtr->Option == OptionType_CALL ? "CE" : "PE");
-				ss << ' ' << FORMAT("{:%d%b}", fmt::localtime(resultSetPtr->ExpiryDate));
-				resultSetPtr->Description = ss.str();
+				ss << (resultSetPtr->_strikePrice < 0 ? "FUT" : "OPT");
+				ss << ' ' << resultSetPtr->_symbol.data();
+				if (resultSetPtr->_strikePrice > 0) ss << ' ' << (resultSetPtr->_strikePrice) << ' ' << (resultSetPtr->_option == Lancelot::OptionType_CALL ? "CE" : "PE");
+				ss << ' ' << FORMAT("{:%d%b}", fmt::localtime(resultSetPtr->_expiryDate));
+				resultSetPtr->_description = ss.str();
 			}
-			resultSetPtr->StrikePrice /= resultSetPtr->Divisor;
-			details::ResultSetContainer.emplace(resultSetPtr->Token, resultSetPtr);
-			details::NameToTokenContainer.emplace(resultSetPtr->Description, resultSetPtr->Token);
+			resultSetPtr->_strikePrice /= resultSetPtr->_divisor;
+			details::ResultSetContainer.emplace(resultSetPtr->_token, resultSetPtr);
+			details::NameToTokenContainer.emplace(resultSetPtr->_description, resultSetPtr->_token);
 			if (callback_) {
 				callback_(resultSetPtr, close, lowDPR, highDPR);
 			}
@@ -98,19 +102,20 @@ namespace Lancelot {
 		return 0;
 	}
 
-	GET_RESULT_SET(uint32_t, ExpiryDate)
-	GET_RESULT_SET(uint32_t, LotMultiple)
-	GET_RESULT_SET(uint32_t, LotSize)
-	GET_RESULT_SET(uint32_t, TickSize)
-	GET_RESULT_SET(uint32_t, Divisor)
-	GET_RESULT_SET(float, StrikePrice)
-	GET_RESULT_SET(Instrument, InstType)
-	GET_RESULT_SET(OptionType, Option)
-	GET_RESULT_SET(ExchangeCode, Exchange)
-	GET_RESULT_SET(std::string, Symbol)
-	GET_RESULT_SET(std::string, Segment)
-	GET_RESULT_SET(std::string, Name)
-	GET_RESULT_SET(std::string, Description)
+	GET_RESULT_SET(uint32_t, ExpiryDate, _expiryDate)
+	GET_RESULT_SET(uint32_t, LotMultiple, _lotMultiple)
+	GET_RESULT_SET(uint32_t, LotSize, _lotSize)
+	GET_RESULT_SET(uint32_t, TickSize, _tickSize)
+	GET_RESULT_SET(uint32_t, Divisor, _divisor)
+	GET_RESULT_SET(float, StrikePrice, _strikePrice)
+	GET_RESULT_SET(Instrument, InstType, _instType)
+	GET_RESULT_SET(OptionType, Option, _option)
+	GET_RESULT_SET(ExchangeCode, Exchange, _exchange)
+	GET_RESULT_SET(std::string, Symbol, _symbol)
+	GET_RESULT_SET(std::string, Segment, _segment)
+	GET_RESULT_SET(std::string, Name, _name)
+	GET_RESULT_SET(std::string, Description, _description)
+
 #undef GET_RESULT_SET
 
 	uint32_t ContractInfo::GetOppositeToken(uint32_t token_) {
