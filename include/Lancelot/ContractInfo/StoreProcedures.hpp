@@ -2,7 +2,7 @@
 #define LANCELOT_INCLUDE_STORE_PROCEDURES_HPP
 #pragma once
 
-inline constexpr char createdb_[] =
+inline constexpr char Createdb_[] =
 	"CREATE TABLE ResultSet(Token INTEGER,"
 	" Counter INTEGER PRIMARY KEY AUTOINCREMENT,"
 	" StrikePrice INTEGER,"

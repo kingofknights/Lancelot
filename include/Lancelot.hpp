@@ -4,6 +4,7 @@
 #include "Lancelot/ContractInfo/ContractFetcher.hpp"
 #include "Lancelot/ContractInfo/ContractInfo.hpp"
 #include "Lancelot/ContractInfo/StoreProcedures.hpp"
+#include "Lancelot/Enums.hpp"
 #include "Lancelot/Logger/Logger.hpp"
 #include "Lancelot/Structure.hpp"
 

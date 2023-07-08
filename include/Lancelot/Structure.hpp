@@ -9,48 +9,27 @@
 
 namespace Lancelot {
 
-enum ExchangeCode : int
-{
-    Exchange_NSE_FUTURE = 0,
-    Exchange_NSE_EQUITY,
-    Exchange_NSE_CURRENCY,
-    Exchange_BSE_FUTURE,
-    Exchange_BSE_CURRENCY,
-    Exchange_END
-};
-
-enum Instrument : int
-{
-    Instrument_FUTURE = 0,
-    Instrument_OPTION,
-    Instrument_EQUITY,
-    Instrument_OTHER
-};
-
-enum OptionType : int
-{
-    OptionType_NONE = 0,
-    OptionType_CALL,
-    OptionType_PUT,
-};
+	enum Instrument : int;
+	enum OptionType : int;
+	enum ExchangeCode : int;
 
 #pragma pack(push, 1)
-using ResultSetT = struct ResultSetT {
-    uint32_t	Token;
-    uint32_t	ExpiryDate;
-    uint32_t	LotMultiple;
-    uint32_t	LotSize;
-    uint32_t	TickSize;
-    uint32_t	Divisor;
-    float		StrikePrice;
-    Instrument	InstType;
-    OptionType	Option;
-    ExchangeCode	Exchange;
-    std::string Symbol;
-    std::string Segment;
-    std::string Name;
-    std::string Description;
-};
+	using ResultSetT = struct ResultSetT {
+		uint32_t	 Token;
+		uint32_t	 ExpiryDate;
+		uint32_t	 LotMultiple;
+		uint32_t	 LotSize;
+		uint32_t	 TickSize;
+		uint32_t	 Divisor;
+		float		 StrikePrice;
+		Instrument	 InstType;
+		OptionType	 Option;
+		ExchangeCode Exchange;
+		std::string	 Symbol;
+		std::string	 Segment;
+		std::string	 Name;
+		std::string	 Description;
+	};
 #pragma pack(pop)
 
 }  // namespace Lancelot
