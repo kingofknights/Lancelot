@@ -16,18 +16,20 @@ namespace Lancelot {
 	using TokenToFutureTokenT	= std::unordered_map<uint32_t, uint32_t>;
 	using NameToTokenContainerT = std::unordered_map<std::string, uint32_t>;
 
-	static ResultSetContainerT	 ResultSetContainer;
-	static TokenToFutureTokenT	 TokenToFutureToken;
-	static NameToTokenContainerT NameToTokenContainer;
-	static ContractFetcher*		 contractFetcher = nullptr;
+	namespace details {
+		static ResultSetContainerT	 ResultSetContainer;
+		static TokenToFutureTokenT	 TokenToFutureToken;
+		static NameToTokenContainerT NameToTokenContainer;
+		static ContractFetcher*		 contractFetcher = nullptr;
+	}  // namespace details
 
-#define GET_RESULT_SET(TYPE, FIELD)                      \
-	TYPE ContractInfo::Get##FIELD(uint32_t token_) {     \
-		auto iterator = ResultSetContainer.find(token_); \
-		if (iterator != ResultSetContainer.end()) {      \
-			return iterator->second->FIELD;              \
-		}                                                \
-		return TYPE{};                                   \
+#define GET_RESULT_SET(TYPE, FIELD)                               \
+	TYPE ContractInfo::Get##FIELD(uint32_t token_) {              \
+		auto iterator = details::ResultSetContainer.find(token_); \
+		if (iterator != details::ResultSetContainer.end()) {      \
+			return iterator->second->FIELD;                       \
+		}                                                         \
+		return TYPE{};                                            \
 	}
 
 	void LoadResultSetTable(const TableWithColumnNameT& table_, const ResultSetLoadingCallbackT& callback_) {
@@ -59,8 +61,8 @@ namespace Lancelot {
 				resultSetPtr->Description = ss.str();
 			}
 			resultSetPtr->StrikePrice /= resultSetPtr->Divisor;
-			ResultSetContainer.emplace(resultSetPtr->Token, resultSetPtr);
-			NameToTokenContainer.emplace(resultSetPtr->Description, resultSetPtr->Token);
+			details::ResultSetContainer.emplace(resultSetPtr->Token, resultSetPtr);
+			details::NameToTokenContainer.emplace(resultSetPtr->Description, resultSetPtr->Token);
 			if (callback_) {
 				callback_(resultSetPtr, close, lowDPR, highDPR);
 			}
@@ -71,28 +73,28 @@ namespace Lancelot {
 		for (const auto& row : table_) {
 			int option = std::stoi(row.at(0));
 			int future = std::stoi(row.at(1));
-			TokenToFutureToken.emplace(option, future);
+			details::TokenToFutureToken.emplace(option, future);
 		}
 	}
 	void ContractInfo::Initialize(const std::string& name_, const ResultSetLoadingCallbackT& callback_) {
-		contractFetcher = new ContractFetcher(name_);
+		details::contractFetcher = new ContractFetcher(name_);
 
-		auto table1 = contractFetcher->getResultWithColumnName(GetResultSet_);
+		auto table1 = details::contractFetcher->getResultWithColumnName(GetResultSet_);
 		LoadResultSetTable(table1, callback_);
 
-		auto table2 = contractFetcher->getResultWithColumnIndex(GetFuture_);
+		auto table2 = details::contractFetcher->getResultWithColumnIndex(GetFuture_);
 		LoadFutureOptionTable(table2);
 	}
 
 	ResultSetPtrT ContractInfo::GetResultSet(uint32_t token_) {
-		auto iterator = ResultSetContainer.find(token_);
-		if (iterator != ResultSetContainer.end()) return iterator->second;
+		auto iterator = details::ResultSetContainer.find(token_);
+		if (iterator != details::ResultSetContainer.end()) return iterator->second;
 		return nullptr;
 	}
 
 	uint32_t ContractInfo::GetToken(const std::string& name_) {
-		auto iterator = NameToTokenContainer.find(name_);
-		if (iterator != NameToTokenContainer.cend()) return iterator->second;
+		auto iterator = details::NameToTokenContainer.find(name_);
+		if (iterator != details::NameToTokenContainer.cend()) return iterator->second;
 		return 0;
 	}
 
@@ -125,8 +127,8 @@ namespace Lancelot {
 	}
 
 	uint32_t ContractInfo::GetFuture(uint32_t token_) {
-		const auto iterator = TokenToFutureToken.find(token_);
-		if (iterator != TokenToFutureToken.cend()) return iterator->second;
+		const auto iterator = details::TokenToFutureToken.find(token_);
+		if (iterator != details::TokenToFutureToken.cend()) return iterator->second;
 		return token_;
 	}
 
@@ -140,11 +142,11 @@ namespace Lancelot {
 
 	bool ContractInfo::IsFuture(uint32_t token_) { return GetInstType(token_) == Instrument_FUTURE; }
 
-	void ContractInfo::ExecuteQuery(const std::string& query_) { contractFetcher->executeQuery(query_); }
+	void ContractInfo::ExecuteQuery(const std::string& query_) { details::contractFetcher->executeQuery(query_); }
 
-	TableWithColumnIndexT ContractInfo::GetResultWithIndex(const std::string& query_) { return contractFetcher->getResultWithColumnIndex(query_); }
+	TableWithColumnIndexT ContractInfo::GetResultWithIndex(const std::string& query_) { return details::contractFetcher->getResultWithColumnIndex(query_); }
 
-	TableWithColumnNameT ContractInfo::GetResultWithName(const std::string& query_) { return contractFetcher->getResultWithColumnName(query_); }
+	TableWithColumnNameT ContractInfo::GetResultWithName(const std::string& query_) { return details::contractFetcher->getResultWithColumnName(query_); }
 
 	OptionType ContractInfo::GetOptionType(const std::string& option_) {
 		if (option_ == "CE") return OptionType_CALL;

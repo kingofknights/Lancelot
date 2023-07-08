@@ -60,7 +60,7 @@ namespace Lancelot {
 		static OptionType	GetOptionType(const std::string& option_);
 		static Instrument	GetInstrumentType(const std::string& type_);
 		static ExchangeCode GetExchangeCode(const std::string& exchange_);
-		static std::string GetExchangeName(ExchangeCode exchangeCode_);
+		static std::string	GetExchangeName(ExchangeCode exchangeCode_);
 	};
 
 }  // namespace Lancelot

@@ -23,6 +23,6 @@ add_library(${PROJECT_NAME}
         src/ContractFetcher.cpp
         src/ContractInfo.cpp
         include/Lancelot/Enums.hpp)
+
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME} PUBLIC fmt::fmt SQLiteCpp)
-target_compile_options(${PROJECT_NAME} PUBLIC -fpermissive)
