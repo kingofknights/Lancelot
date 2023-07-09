@@ -1,5 +1,16 @@
 #pragma once
 
+#include <ostream>
+#include <type_traits>
+
+template <typename T>
+concept EnumType = std::is_enum_v<T>;
+
+template <EnumType T>
+std::ostream& operator<<(std::ostream& os, const T& value) {
+	return os << static_cast<int>(value);
+}
+
 #include <fmt/chrono.h>
 #include <fmt/color.h>
 #include <fmt/core.h>
