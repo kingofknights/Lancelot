@@ -19,10 +19,12 @@ add_library(${PROJECT_NAME}
         include/Lancelot/ContractInfo/ContractFetcher.hpp
         include/Lancelot/ContractInfo/ContractInfo.hpp
         include/Lancelot/Structure.hpp
+        include/Lancelot/Enums.hpp
+
         include/Lancelot.hpp
         src/ContractFetcher.cpp
         src/ContractInfo.cpp
-        include/Lancelot/Enums.hpp)
+        src/Enums.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME} PUBLIC fmt::fmt SQLiteCpp)

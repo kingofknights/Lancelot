@@ -6,6 +6,8 @@
 #define LANCELOT_INCLUDE_ENUMS_HPP
 #pragma once
 
+#include <string>
+
 #define JSON_PARAMS		   "params"
 #define JSON_ID			   "uniqueId"
 #define JSON_TOKEN		   "token"
@@ -49,7 +51,7 @@ namespace Lancelot {
 		OptionType_PUT,
 	};
 
-	enum SideType : int {
+	enum Side : int {
 		SideType_BUY = 0,
 		SideType_SELL
 	};
@@ -91,6 +93,13 @@ namespace Lancelot {
 		// TRACKER
 		ResponseType_TRACKER,
 	};
+
+	std::string print(ExchangeCode exchangeCode_);
+	std::string print(Instrument instrument_);
+	std::string print(OptionType optionType_);
+	std::string print(Side side_);
+	std::string print(RequestType requestType_);
+	std::string print(ResponseType responseType_);
 
 }  // namespace Lancelot
 #endif	// LANCELOT_INCLUDE_ENUMS_HPP

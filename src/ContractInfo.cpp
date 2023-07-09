@@ -174,12 +174,4 @@ namespace Lancelot {
 		return Exchange_END;
 	}
 
-	std::string ContractInfo::GetExchangeName(ExchangeCode exchangeCode_) {
-		if (exchangeCode_ == Exchange_NSE_FUTURE) return "NSE_FO";
-		if (exchangeCode_ == Exchange_NSE_EQUITY) return "NSE_EQ";
-		if (exchangeCode_ == Exchange_NSE_CURRENCY) return "NSE_CD";
-		if (exchangeCode_ == Exchange_BSE_FUTURE) return "BSE_FO";
-		if (exchangeCode_ == Exchange_BSE_CURRENCY) return "BSE_CD";
-		return {};
-	}
 }  // namespace Lancelot
