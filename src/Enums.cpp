@@ -8,11 +8,11 @@ namespace Lancelot {
 
 	std::string print(Exchange exchangeCode_) {
 		switch (exchangeCode_) {
-			case Exchange_NSE_FUTURE: return "Exchange_NSE_FUTURE";
-			case Exchange_NSE_EQUITY: return "Exchange_NSE_EQUITY";
-			case Exchange_NSE_CURRENCY: return "Exchange_NSE_CURRENCY";
-			case Exchange_BSE_FUTURE: return "Exchange_BSE_FUTURE";
-			case Exchange_BSE_CURRENCY: return "Exchange_BSE_CURRENCY";
+			case Exchange_NSE_FUTURE: return "NSE_FUTURE";
+			case Exchange_NSE_EQUITY: return "NSE_EQUITY";
+			case Exchange_NSE_CURRENCY: return "NSE_CURRENCY";
+			case Exchange_BSE_FUTURE: return "BSE_FUTURE";
+			case Exchange_BSE_CURRENCY: return "BSE_CURRENCY";
 			case Exchange_END: return "Exchange_END";
 		}
 		return __FUNCTION__;
@@ -39,8 +39,8 @@ namespace Lancelot {
 
 	std::string print(Side side_) {
 		switch (side_) {
-			case SideType_BUY: return "SideType_BUY";
-			case SideType_SELL: return "SideType_SELL";
+			case Side_BUY: return "Side_BUY";
+			case Side_SELL: return "Side_SELL";
 		}
 		return __FUNCTION__;
 	}
