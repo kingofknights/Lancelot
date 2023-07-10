@@ -29,7 +29,7 @@
 
 namespace Lancelot {
 
-	enum ExchangeCode : int {
+	enum Exchange : int {
 		Exchange_NSE_FUTURE = 0,
 		Exchange_NSE_EQUITY,
 		Exchange_NSE_CURRENCY,
@@ -94,7 +94,7 @@ namespace Lancelot {
 		ResponseType_TRACKER,
 	};
 
-	std::string print(ExchangeCode exchangeCode_);
+	std::string print(Exchange exchangeCode_);
 	std::string print(Instrument instrument_);
 	std::string print(OptionType optionType_);
 	std::string print(Side side_);

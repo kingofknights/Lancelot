@@ -6,7 +6,7 @@
 
 namespace Lancelot {
 
-	std::string print(ExchangeCode exchangeCode_) {
+	std::string print(Exchange exchangeCode_) {
 		switch (exchangeCode_) {
 			case Exchange_NSE_FUTURE: return "Exchange_NSE_FUTURE";
 			case Exchange_NSE_EQUITY: return "Exchange_NSE_EQUITY";

@@ -11,7 +11,7 @@
 #include <vector>
 
 namespace Lancelot {
-	enum ExchangeCode : int;
+	enum Exchange : int;
 	enum Instrument : int;
 	enum OptionType : int;
 
@@ -40,7 +40,7 @@ namespace Lancelot {
 
 		static Instrument	GetInstType(uint32_t token_);
 		static OptionType	GetOption(uint32_t token_);
-		static ExchangeCode GetExchange(uint32_t token_);
+		static Exchange GetExchange(uint32_t token_);
 
 		static std::string GetSymbol(uint32_t token_);
 		static std::string GetSegment(uint32_t token_);
@@ -59,7 +59,7 @@ namespace Lancelot {
 
 		static OptionType	GetOptionType(const std::string& option_);
 		static Instrument	GetInstrumentType(const std::string& type_);
-		static ExchangeCode GetExchangeCode(const std::string& exchange_);
+		static Exchange GetExchange(const std::string& exchange_);
 	};
 
 }  // namespace Lancelot

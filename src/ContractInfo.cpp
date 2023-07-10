@@ -46,7 +46,7 @@ namespace Lancelot {
 			resultSetPtr->_divisor	   = std::stoi(row.at("Divisor"));
 			resultSetPtr->_option	   = Lancelot::ContractInfo::GetOptionType(row.at("OptionType"));
 			resultSetPtr->_instType	   = Lancelot::ContractInfo::GetInstrumentType(row.at("InstType"));
-			resultSetPtr->_exchange	   = Lancelot::ContractInfo::GetExchangeCode(row.at("Exchange"));
+			resultSetPtr->_exchange	   = Lancelot::ContractInfo::GetExchange(row.at("Exchange"));
 			resultSetPtr->_strikePrice = std::stof(row.at("StrikePrice"));
 			resultSetPtr->_symbol	   = row.at("Symbol");
 			resultSetPtr->_segment	   = row.at("Segment");
@@ -110,7 +110,7 @@ namespace Lancelot {
 	GET_RESULT_SET(float, StrikePrice, _strikePrice)
 	GET_RESULT_SET(Instrument, InstType, _instType)
 	GET_RESULT_SET(OptionType, Option, _option)
-	GET_RESULT_SET(ExchangeCode, Exchange, _exchange)
+	GET_RESULT_SET(Exchange, Exchange, _exchange)
 	GET_RESULT_SET(std::string, Symbol, _symbol)
 	GET_RESULT_SET(std::string, Segment, _segment)
 	GET_RESULT_SET(std::string, Name, _name)
@@ -165,7 +165,7 @@ namespace Lancelot {
 		return Instrument_EQUITY;
 	}
 
-	ExchangeCode ContractInfo::GetExchangeCode(const std::string& exchange_) {
+	Exchange ContractInfo::GetExchange(const std::string& exchange_) {
 		if (exchange_ == "NSE_FO") return Exchange_NSE_FUTURE;
 		if (exchange_ == "NSE_EQ") return Exchange_NSE_EQUITY;
 		if (exchange_ == "NSE_CD") return Exchange_NSE_CURRENCY;
