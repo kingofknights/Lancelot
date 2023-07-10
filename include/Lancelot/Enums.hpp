@@ -52,8 +52,8 @@ namespace Lancelot {
 	};
 
 	enum Side : int {
-		SideType_BUY = 0,
-		SideType_SELL
+		Side_BUY = 0,
+		Side_SELL
 	};
 
 	enum RequestType : int {
