@@ -5,6 +5,7 @@
 #include "Lancelot/ContractInfo/ContractInfo.hpp"
 
 #include <unordered_map>
+#include <sstream>
 
 #include "Lancelot/ContractInfo/ContractFetcher.hpp"
 #include "Lancelot/ContractInfo/StoreProcedures.hpp"

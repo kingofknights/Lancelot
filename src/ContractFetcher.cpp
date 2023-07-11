@@ -1,9 +1,13 @@
 #include "Lancelot/ContractInfo/ContractFetcher.hpp"
 
+#include <SQLiteCpp/SQLiteCpp.h>
+
 #include "Lancelot/Logger/Logger.hpp"
 
 namespace Lancelot {
-	ContractFetcher::ContractFetcher(const std::string& name_) : _database(name_, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE) { printMetaData(name_); }
+	ContractFetcher::ContractFetcher(const std::string& name_) : _database(new SQLite::Database(name_, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE)) { printMetaData(name_); }
+
+	ContractFetcher::~ContractFetcher() noexcept { delete _database; }
 
 	void ContractFetcher::printMetaData(const std::string& name_) {
 		const SQLite::Header header = SQLite::Database::getHeaderInfo(name_);
@@ -32,7 +36,7 @@ namespace Lancelot {
 	}
 
 	TableWithColumnNameT ContractFetcher::getResultWithColumnName(const std::string& query_) {
-		SQLite::Statement	 query(_database, query_);
+		SQLite::Statement	 query(*_database, query_);
 		TableWithColumnNameT table;
 		while (query.executeStep()) {
 			RowWithColumnNameT row;
@@ -45,7 +49,7 @@ namespace Lancelot {
 	}
 
 	TableWithColumnIndexT ContractFetcher::getResultWithColumnIndex(const std::string& query_) {
-		SQLite::Statement	  query(_database, query_);
+		SQLite::Statement	  query(*_database, query_);
 		TableWithColumnIndexT table;
 		while (query.executeStep()) {
 			RowWithColumnIndexT row;
@@ -56,10 +60,9 @@ namespace Lancelot {
 		}
 		return table;
 	}
-
 	void ContractFetcher::executeQuery(const std::string& query_) {
 		try {
-			SQLite::Statement query(_database, query_);
+			SQLite::Statement query(*_database, query_);
 			query.executeStep();
 		} catch (std::exception& ex_) {
 			LOG(ERROR, "{} {}", __FUNCTION__, ex_.what())
