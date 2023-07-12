@@ -5,12 +5,9 @@
 #include <array>
 #include <cstdint>
 #include <ranges>
+#include "Lancelot/Enums.hpp"
 
 namespace Lancelot {
-
-	enum Instrument : int;
-	enum OptionType : int;
-	enum Exchange : int;
 
 	using ResultSetT = struct ResultSetT {
 		uint32_t   _token		= 0;
@@ -29,6 +26,16 @@ namespace Lancelot {
 		std::string _name;
 		std::string _description;
 	};
+
+	constexpr size_t ENCRYPT_MESSAGE_MAX_LENGTH = 512;
+
+	using CommunicationT = struct CommunicationT {
+		uint16_t _size;
+		uint32_t _user;
+		uint32_t _query;
+		int		 _encryptLength;
+		char	 _encryptMessage[ENCRYPT_MESSAGE_MAX_LENGTH];
+	} __attribute((packed));
 
 }  // namespace Lancelot
 
