@@ -6,9 +6,9 @@
 #define LANCELOT_INCLUDE_LANCELOT_LANCELOTAPI_HPP_
 #pragma once
 
-#include "API/Adaptor/Adaptor.hpp"
-#include "API/Common/Common.hpp"
-#include "API/Common/StockPacket.hpp"
-#include "API/Strategy/Strategy.hpp"
+#include "Lancelot/API/Adaptor/Adaptor.hpp"
+#include "Lancelot/API/Common/Common.hpp"
+#include "Lancelot/API/Common/StockPacket.hpp"
+#include "Lancelot/API/Strategy/Strategy.hpp"
 
 #endif	// LANCELOT_INCLUDE_LANCELOT_LANCELOTAPI_HPP_
