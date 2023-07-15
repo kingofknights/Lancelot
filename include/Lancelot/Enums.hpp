@@ -94,12 +94,12 @@ namespace Lancelot {
 		ResponseType_TRACKER,
 	};
 
-	std::string print(Exchange exchangeCode_);
-	std::string print(Instrument instrument_);
-	std::string print(OptionType optionType_);
-	std::string print(Side side_);
-	std::string print(RequestType requestType_);
-	std::string print(ResponseType responseType_);
+	std::string toString(Exchange exchangeCode_);
+	std::string toString(Instrument instrument_);
+	std::string toString(OptionType optionType_);
+	std::string toString(Side side_);
+	std::string toString(RequestType requestType_);
+	std::string toString(ResponseType responseType_);
 
 }  // namespace Lancelot
 #endif	// LANCELOT_INCLUDE_ENUMS_HPP

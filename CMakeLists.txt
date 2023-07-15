@@ -25,7 +25,7 @@ add_library(${PROJECT_NAME}
         src/ContractInfo.cpp
         src/Enums.cpp
         src/Security.cpp
-)
+        include/Lancelot/API/Common/Common.hpp include/Lancelot/API/Common/StockPacket.hpp src/StockPacket.cpp include/Lancelot/API/Adaptor/Adaptor.hpp include/Lancelot/API/Strategy/Strategy.hpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_include_directories(${PROJECT_NAME} PRIVATE repo/xcd)

@@ -4,9 +4,10 @@
 
 #include "Lancelot/Enums.hpp"
 
+#include "Lancelot/API/Common/Common.hpp"
 namespace Lancelot {
 
-	std::string print(Exchange exchangeCode_) {
+	std::string toString(Exchange exchangeCode_) {
 		switch (exchangeCode_) {
 			case Exchange_NSE_FUTURE: return "NSE_FUTURE";
 			case Exchange_NSE_EQUITY: return "NSE_EQUITY";
@@ -18,7 +19,7 @@ namespace Lancelot {
 		return __FUNCTION__;
 	}
 
-	std::string print(Instrument instrument_) {
+	std::string toString(Instrument instrument_) {
 		switch (instrument_) {
 			case Instrument_FUTURE: return "Instrument_FUTURE";
 			case Instrument_OPTION: return "Instrument_OPTION";
@@ -28,7 +29,7 @@ namespace Lancelot {
 		return __FUNCTION__;
 	}
 
-	std::string print(OptionType optionType_) {
+	std::string toString(OptionType optionType_) {
 		switch (optionType_) {
 			case OptionType_NONE: return "OptionType_NONE";
 			case OptionType_CALL: return "OptionType_CALL";
@@ -37,7 +38,7 @@ namespace Lancelot {
 		return __FUNCTION__;
 	}
 
-	std::string print(Side side_) {
+	std::string toString(Side side_) {
 		switch (side_) {
 			case Side_BUY: return "Side_BUY";
 			case Side_SELL: return "Side_SELL";
@@ -45,7 +46,7 @@ namespace Lancelot {
 		return __FUNCTION__;
 	}
 
-	std::string print(RequestType requestType_) {
+	std::string toString(RequestType requestType_) {
 		switch (requestType_) {
 			case RequestType_LOGIN: return "RequestType_LOGIN";
 			case RequestType_NEW: return "RequestType_NEW";
@@ -59,7 +60,7 @@ namespace Lancelot {
 		return __FUNCTION__;
 	}
 
-	std::string print(ResponseType responseType_) {
+	std::string toString(ResponseType responseType_) {
 		switch (responseType_) {
 			case ResponseType_PLACED: return "ResponseType_PLACED";
 			case ResponseType_NEW: return "ResponseType_NEW";
@@ -81,5 +82,58 @@ namespace Lancelot {
 		}
 		return __FUNCTION__;
 	}
+
+	namespace API {
+		std::string toString(OrderType orderType_) {
+			switch (orderType_) {
+				case OrderType_LIMIT: return "OrderType_LIMIT";
+				case OrderType_MARKET: return "OrderType_MARKET";
+				case OrderType_IOC: return "OrderType_IOC";
+				case OrderType_SPREAD: return "OrderType_SPREAD";
+			}
+			return __FUNCTION__;
+		}
+
+		std::string toString(StrategyStatus status_) {
+			switch (status_) {
+				case StrategyStatus_PENDING: return "StrategyStatus_PENDING";
+				case StrategyStatus_ACTIVE: return "StrategyStatus_ACTIVE";
+				case StrategyStatus_APPLIED: return "StrategyStatus_APPLIED";
+				case StrategyStatus_INACTIVE: return "StrategyStatus_INACTIVE";
+				case StrategyStatus_TERMINATED: return "StrategyStatus_TERMINATED";
+				case StrategyStatus_WAITING: return "StrategyStatus_WAITING";
+				case StrategyStatus_DISCONNECTED: return "StrategyStatus_DISCONNECTED";
+			}
+			return __FUNCTION__;
+		}
+		std::string toString(OrderStatus status_) {
+			switch (status_) {
+				case OrderStatus_NONE: return "OrderStatus_NONE";
+				case OrderStatus_PLACED: return "OrderStatus_PLACED";
+				case OrderStatus_NEW: return "OrderStatus_NEW";
+				case OrderStatus_REPLACED: return "OrderStatus_REPLACED";
+				case OrderStatus_CANCELLED: return "OrderStatus_CANCELLED";
+				case OrderStatus_NEW_REJECT: return "OrderStatus_NEW_REJECT";
+				case OrderStatus_REPLACE_REJECT: return "OrderStatus_REPLACE_REJECT";
+				case OrderStatus_CANCEL_REJECT: return "OrderStatus_CANCEL_REJECT";
+				case OrderStatus_PARTIAL_FILLED: return "OrderStatus_PARTIAL_FILLED";
+				case OrderStatus_FILLED: return "OrderStatus_FILLED";
+				case OrderStatus_PENDING: return "OrderStatus_PENDING";
+				case OrderStatus_ADAPTOR_REJECT: return "OrderStatus_ADAPTOR_REJECT";
+			}
+			return __FUNCTION__;
+		}
+		std::string toString(OrderRequest request_) {
+			switch (request_) {
+				case OrderRequest_NONE: return "OrderRequest_NONE";
+				case OrderRequest_NEW: return "OrderRequest_NEW";
+				case OrderRequest_MODIFY: return "OrderRequest_MODIFY";
+				case OrderRequest_CANCEL: return "OrderRequest_CANCEL";
+				case OrderRequest_IOC: return "OrderRequest_IOC";
+				case OrderRequest_CANCEL_ALL: return "OrderRequest_CANCEL_ALL";
+			}
+			return __FUNCTION__;
+		}
+	}  // namespace API
 
 }  // namespace Lancelot
