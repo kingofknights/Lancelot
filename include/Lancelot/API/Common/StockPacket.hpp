@@ -4,7 +4,10 @@
 
 #ifndef LANCELOT_INCLUDE_LANCELOT_API_COMMON_STOCK_PACKET_HPP_
 #define LANCELOT_INCLUDE_LANCELOT_API_COMMON_STOCK_PACKET_HPP_
+#pragma once
+
 #include <memory>
+#include <string>
 
 namespace Lancelot {
 	enum Side : int;
