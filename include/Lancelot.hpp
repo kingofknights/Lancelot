@@ -2,7 +2,6 @@
 #define LANCELOT_INCLUDE_LANCELOT_HPP
 #pragma once
 
-#include "Lancelot/API/API.hpp"
 #include "Lancelot/ContractInfo/ContractFetcher.hpp"
 #include "Lancelot/ContractInfo/ContractInfo.hpp"
 #include "Lancelot/ContractInfo/StoreProcedures.hpp"
