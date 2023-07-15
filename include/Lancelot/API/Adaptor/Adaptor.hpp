@@ -4,6 +4,7 @@
 
 #ifndef LANCELOT_INCLUDE_LANCELOT_API_ADAPTOR_ADAPTOR_HPP_
 #define LANCELOT_INCLUDE_LANCELOT_API_ADAPTOR_ADAPTOR_HPP_
+#pragma once
 
 #include <memory>
 #include <thread>

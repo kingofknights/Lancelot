@@ -5,6 +5,7 @@
 #ifndef LANCELOT_INCLUDE_LANCELOT_SECURITY_SECURITY_HPP_
 #define LANCELOT_INCLUDE_LANCELOT_SECURITY_SECURITY_HPP_
 #pragma once
+
 #include <string_view>
 
 namespace Lancelot {
