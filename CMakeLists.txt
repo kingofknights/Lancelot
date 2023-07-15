@@ -19,13 +19,18 @@ add_library(${PROJECT_NAME}
         include/Lancelot/Security/Security.hpp
         include/Lancelot/Structure.hpp
         include/Lancelot/Enums.hpp
-
+        include/Lancelot/API/Common/Common.hpp
+        include/Lancelot/API/Common/StockPacket.hpp
+        include/Lancelot/API/Adaptor/Adaptor.hpp
+        include/Lancelot/API/Strategy/Strategy.hpp
+        include/Lancelot/API/API.hpp
         include/Lancelot.hpp
+
         src/ContractFetcher.cpp
         src/ContractInfo.cpp
         src/Enums.cpp
         src/Security.cpp
-        include/Lancelot/API/Common/Common.hpp include/Lancelot/API/Common/StockPacket.hpp src/StockPacket.cpp include/Lancelot/API/Adaptor/Adaptor.hpp include/Lancelot/API/Strategy/Strategy.hpp)
+        src/StockPacket.cpp)
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_include_directories(${PROJECT_NAME} PRIVATE repo/xcd)
