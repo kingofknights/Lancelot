@@ -4,7 +4,9 @@
 
 #ifndef LANCELOT_INCLUDE_LANCELOT_API_COMMON_HPP_
 #define LANCELOT_INCLUDE_LANCELOT_API_COMMON_HPP_
+#pragma once
 
+#include <string>
 namespace Lancelot::API{
 
 	enum OrderType : int {
