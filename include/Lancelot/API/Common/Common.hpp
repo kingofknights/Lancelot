@@ -6,15 +6,9 @@
 #define LANCELOT_INCLUDE_LANCELOT_API_COMMON_HPP_
 #pragma once
 
-#if _WIN32
-#define LANCELOT_EXPORT __declspec(dllexport)
-#else
-#define LANCELOT_EXPORT
-#endif
-
 #include <string>
-namespace LANCELOT_EXPORT Lancelot {
-	namespace LANCELOT_EXPORT API {
+namespace Lancelot {
+	namespace API {
 		enum OrderType : int {
 			OrderType_LIMIT = 0,
 			OrderType_MARKET,

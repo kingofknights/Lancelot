@@ -13,22 +13,16 @@
 using ThreadPointerT = std::unique_ptr<std::jthread>;
 using ThreadGroupT	 = std::vector<ThreadPointerT>;
 
-#if _WIN32
-#define LANCELOT_EXPORT __declspec(dllexport)
-#else
-#define LANCELOT_EXPORT
-#endif
-
-namespace LANCELOT_EXPORT Lancelot {
+namespace Lancelot {
 	enum Exchange : int;
-	namespace LANCELOT_EXPORT API {
+	namespace API {
 		enum OrderRequest : int;
 		enum OrderStatus : int;
 
 		class StockPacket;
 		using StockPacketPtrT = std::shared_ptr<StockPacket>;
 
-		class LANCELOT_EXPORT Adaptor {
+		class Adaptor {
 		public:
 			virtual ~Adaptor() = default;
 
@@ -45,5 +39,5 @@ namespace LANCELOT_EXPORT Lancelot {
 			static void OnConnection(Exchange exchange_);
 		};
 	}  // namespace API
-}  // namespace EXPORT Lancelot
+}  // namespace Lancelot
 #endif	// LANCELOT_INCLUDE_LANCELOT_API_ADAPTOR_ADAPTOR_HPP_

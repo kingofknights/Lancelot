@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_ENABLE_EXPORTS ON)
 
 find_package(SQLiteCpp CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
@@ -19,19 +20,25 @@ add_library(${PROJECT_NAME}
         include/Lancelot/Security/Security.hpp
         include/Lancelot/Structure.hpp
         include/Lancelot/Enums.hpp
-        include/Lancelot/API/Common/Common.hpp
-        include/Lancelot/API/Common/StockPacket.hpp
-        include/Lancelot/API/Adaptor/Adaptor.hpp
-        include/Lancelot/API/Strategy/Strategy.hpp
-        include/Lancelot/API/API.hpp
         include/Lancelot.hpp
 
         src/ContractFetcher.cpp
         src/ContractInfo.cpp
         src/Enums.cpp
         src/Security.cpp
-        src/StockPacket.cpp)
+        )
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_include_directories(${PROJECT_NAME} PRIVATE repo/xcd)
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt SQLiteCpp xcd)
+
+add_library(${PROJECT_NAME}_API
+        include/Lancelot/API/Common/Common.hpp
+        include/Lancelot/API/Common/StockPacket.hpp
+        include/Lancelot/API/Adaptor/Adaptor.hpp
+        include/Lancelot/API/Strategy/Strategy.hpp
+        include/Lancelot/API/API.hpp
+        src/StockPacket.cpp
+        )
+target_include_directories(${PROJECT_NAME}_API PRIVATE include)
+target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
