@@ -37,7 +37,7 @@ add_library(${PROJECT_NAME}_API
         include/Lancelot/API/Common/StockPacket.hpp
         include/Lancelot/API/Adaptor/Adaptor.hpp
         include/Lancelot/API/Strategy/Strategy.hpp
-        include/Lancelot/API/API.hpp
+        include/Lancelot/LancelotAPI.hpp
         src/StockPacket.cpp
         )
 target_include_directories(${PROJECT_NAME}_API PRIVATE include)
