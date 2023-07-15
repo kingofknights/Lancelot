@@ -7,7 +7,7 @@
 #pragma once
 
 #if _WIN32
-#define LANCELOT_EXPORT __attribute__((dllexport))
+#define LANCELOT_EXPORT __declspec(dllexport)
 #else
 #define LANCELOT_EXPORT
 #endif

@@ -14,7 +14,7 @@ using ThreadPointerT = std::unique_ptr<std::jthread>;
 using ThreadGroupT	 = std::vector<ThreadPointerT>;
 
 #if _WIN32
-#define LANCELOT_EXPORT __attribute__((dllexport))
+#define LANCELOT_EXPORT __declspec(dllexport)
 #else
 #define LANCELOT_EXPORT
 #endif
