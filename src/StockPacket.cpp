@@ -4,7 +4,10 @@
 
 #include "Lancelot/API/Common/StockPacket.hpp"
 
+#include "Lancelot/API/Adaptor/Adaptor.hpp"
 #include "Lancelot/API/Common/Common.hpp"
+#include "Lancelot/Logger/Logger.hpp"
+
 namespace Lancelot::API {
 	int Position::getLastQuantity() const { return _lastQuantity; }
 	int Position::getLastPrice() const { return _lastPrice; }
@@ -52,5 +55,23 @@ namespace Lancelot::API {
 	OrderRequest StockPacket::getLastRequest() const { return _lastRequest; }
 	OrderStatus	 StockPacket::getCurrentStatus() const { return _currentStatus; }
 	OrderStatus	 StockPacket::getPreviousStatus() const { return _previousStatus; }
+
+	bool StockPacket::execute(int price_, int quantity_, OrderRequest request_) {
+		if (not getAdaptorPtr()) {
+			LOG(WARNING, "No adaptor found for stockPacket {} price {} quantity {} request {}", getUniqueClassIdentity(), price_, quantity_, Lancelot::API::toString(request_))
+			return false;
+		}
+
+		auto orderStatus = getCurrentStatus();
+		setCurrentStatus(OrderStatus_PENDING);
+
+		if (getAdaptorPtr()->execute(shared_from_this(), price_, quantity_, request_)) {
+			setPrice(price_);
+			setQuantity(quantity_);
+			return true;
+		}
+		setCurrentStatus(orderStatus);
+		return false;
+	}
 
 }  // namespace Lancelot::API

@@ -90,7 +90,7 @@ namespace Lancelot {
 			std::string _clientCode;
 			std::string _algoCode;
 		};
-		class StockPacket : public Position, public Internal, public OrderDetails {
+		class StockPacket : public Position, public Internal, public OrderDetails, std::enable_shared_from_this<StockPacket> {
 		public:
 			explicit StockPacket();
 			[[nodiscard]] OrderRequest getLastRequest() const;
@@ -100,6 +100,8 @@ namespace Lancelot {
 			void setLastRequest(OrderRequest lastRequest_);
 			void setCurrentStatus(OrderStatus currentStatus_);
 			void setPreviousStatus(OrderStatus previousStatus_);
+
+			bool execute(int price_, int quantity_, OrderRequest request_);
 
 		private:
 			OrderRequest _lastRequest;
