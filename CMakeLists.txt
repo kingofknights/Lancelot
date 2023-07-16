@@ -39,6 +39,7 @@ add_library(${PROJECT_NAME}_API
         include/Lancelot/API/Strategy/Strategy.hpp
         include/LancelotAPI.hpp
         src/StockPacket.cpp
+        src/Common.cpp
         )
 target_include_directories(${PROJECT_NAME}_API PRIVATE include)
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
