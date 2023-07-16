@@ -5,6 +5,7 @@
 #include <array>
 #include <cstdint>
 #include <ranges>
+
 #include "Lancelot/Enums.hpp"
 
 namespace Lancelot {
@@ -28,15 +29,14 @@ namespace Lancelot {
 	};
 
 	constexpr size_t ENCRYPT_MESSAGE_MAX_LENGTH = 512;
-
+#pragma pack(push, 1)
 	using CommunicationT = struct CommunicationT {
-		uint16_t _size;
 		uint32_t _user;
 		uint32_t _query;
 		int		 _encryptLength;
 		char	 _encryptMessage[ENCRYPT_MESSAGE_MAX_LENGTH];
-	} __attribute((packed));
-
+	};
+#pragma pack(pop)
 }  // namespace Lancelot
 
 #endif	// LANCELOT_INCLUDE_STRUCTURE_HPP

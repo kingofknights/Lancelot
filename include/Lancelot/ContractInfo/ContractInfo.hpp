@@ -4,6 +4,7 @@
 
 #ifndef LANCELOT_INCLUDE_CONTRACT_INFO_HPP
 #define LANCELOT_INCLUDE_CONTRACT_INFO_HPP
+#pragma once
 
 #include <functional>
 #include <string>

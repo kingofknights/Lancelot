@@ -6,7 +6,7 @@
 
 namespace Lancelot {
 
-	std::string print(Exchange exchangeCode_) {
+	std::string toString(Exchange exchangeCode_) {
 		switch (exchangeCode_) {
 			case Exchange_NSE_FUTURE: return "NSE_FUTURE";
 			case Exchange_NSE_EQUITY: return "NSE_EQUITY";
@@ -18,7 +18,7 @@ namespace Lancelot {
 		return __FUNCTION__;
 	}
 
-	std::string print(Instrument instrument_) {
+	std::string toString(Instrument instrument_) {
 		switch (instrument_) {
 			case Instrument_FUTURE: return "Instrument_FUTURE";
 			case Instrument_OPTION: return "Instrument_OPTION";
@@ -28,7 +28,7 @@ namespace Lancelot {
 		return __FUNCTION__;
 	}
 
-	std::string print(OptionType optionType_) {
+	std::string toString(OptionType optionType_) {
 		switch (optionType_) {
 			case OptionType_NONE: return "OptionType_NONE";
 			case OptionType_CALL: return "OptionType_CALL";
@@ -37,7 +37,7 @@ namespace Lancelot {
 		return __FUNCTION__;
 	}
 
-	std::string print(Side side_) {
+	std::string toString(Side side_) {
 		switch (side_) {
 			case Side_BUY: return "Side_BUY";
 			case Side_SELL: return "Side_SELL";
@@ -45,7 +45,7 @@ namespace Lancelot {
 		return __FUNCTION__;
 	}
 
-	std::string print(RequestType requestType_) {
+	std::string toString(RequestType requestType_) {
 		switch (requestType_) {
 			case RequestType_LOGIN: return "RequestType_LOGIN";
 			case RequestType_NEW: return "RequestType_NEW";
@@ -59,7 +59,7 @@ namespace Lancelot {
 		return __FUNCTION__;
 	}
 
-	std::string print(ResponseType responseType_) {
+	std::string toString(ResponseType responseType_) {
 		switch (responseType_) {
 			case ResponseType_PLACED: return "ResponseType_PLACED";
 			case ResponseType_NEW: return "ResponseType_NEW";

@@ -14,7 +14,7 @@ namespace Lancelot {
 		int			  encryptMessageLength;
 		unsigned char encryptMessage[ENCRYPT_MESSAGE_MAX_LENGTH];
 		xcdCompress(reinterpret_cast<const unsigned char *>(order_.data()), order_.length(), encryptMessage, &encryptMessageLength);
-		CommunicationT communication{._size = sizeof(CommunicationT), ._user = uid_, ._query = query_, ._encryptLength = encryptMessageLength};
+		CommunicationT communication{ ._user = uid_, ._query = query_, ._encryptLength = encryptMessageLength};
 		std::memcpy(communication._encryptMessage, encryptMessage, encryptMessageLength);
 		return communication;
 	}
