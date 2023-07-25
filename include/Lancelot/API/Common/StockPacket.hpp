@@ -19,6 +19,10 @@ namespace Lancelot {
 		enum OrderRequest : int;
 		class Strategy;
 		class Adaptor;
+		class CustomUserAllocation {
+		public:
+			virtual ~CustomUserAllocation() = default;
+		};
 
 		using StrategyPtrT = std::shared_ptr<Strategy>;
 		using AdaptorPtrT  = std::shared_ptr<Adaptor>;
@@ -40,7 +44,6 @@ namespace Lancelot {
 		};
 
 		class Internal {
-		private:
 		public:
 			[[nodiscard]] int getUniqueClassIdentity() const;
 			[[nodiscard]] int getStrategyNumber() const;
@@ -48,20 +51,25 @@ namespace Lancelot {
 			[[nodiscard]] const ResultSetT	 *getResultSetPtr() const;
 			[[nodiscard]] const AdaptorPtrT	 &getAdaptorPtr() const;
 			[[nodiscard]] const StrategyPtrT &getStrategyPtr() const;
+			[[nodiscard]] CustomUserAllocation				 *getUserAllocationPtr() const;
 
-			void setUniqueClassIdentity(int uniqueClassIdentity_);
+			virtual ~Internal();
+			Internal();
+
 			void setStrategyNumber(int strategyNumber_);
 			void setResultSetPtr(const ResultSetT *resultSetPtr_);
 			void setAdaptorPtr(const AdaptorPtrT &adaptorPtr_);
 			void setStrategyPtr(const StrategyPtrT &strategyPtr_);
+			void setUserAllocationPtr(CustomUserAllocation *userAllocationPtr_);
 
 		private:
 			int _uniqueClassIdentity = 0;
 			int _strategyNumber		 = 0;
 
-			ResultSetPtrT _resultSetPtr;
-			AdaptorPtrT	  _adaptorPtr;
-			StrategyPtrT  _strategyPtr;
+			ResultSetPtrT		  _resultSetPtr;
+			AdaptorPtrT			  _adaptorPtr;
+			StrategyPtrT		  _strategyPtr;
+			CustomUserAllocation *_userAllocationPtr;
 		};
 
 		class OrderDetails {

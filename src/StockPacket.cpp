@@ -9,9 +9,11 @@
 #include "Lancelot/Logger/Logger.hpp"
 
 namespace Lancelot::API {
-	int Position::getLastQuantity() const { return _lastQuantity; }
-	int Position::getLastPrice() const { return _lastPrice; }
-	int Position::getTotalQuantity() const { return _totalQuantity; }
+
+	inline static int _globalStockPacketUniqueIdentifierCounter = 1;
+	int				  Position::getLastQuantity() const { return _lastQuantity; }
+	int				  Position::getLastPrice() const { return _lastPrice; }
+	int				  Position::getTotalQuantity() const { return _totalQuantity; }
 
 	void Position::setLastQuantity(int lastQuantity_) { _lastQuantity = lastQuantity_; }
 	void Position::setLastPrice(int lastPrice_) { _lastPrice = lastPrice_; }
@@ -20,16 +22,19 @@ namespace Lancelot::API {
 	int Internal::getUniqueClassIdentity() const { return _uniqueClassIdentity; }
 	int Internal::getStrategyNumber() const { return _strategyNumber; }
 
-	void Internal::setUniqueClassIdentity(int uniqueClassIdentity_) { _uniqueClassIdentity = uniqueClassIdentity_; }
 	void Internal::setStrategyNumber(int strategyNumber_) { _strategyNumber = strategyNumber_; }
 
-	const ResultSetT   *Internal::getResultSetPtr() const { return _resultSetPtr; }
-	const AdaptorPtrT  &Internal::getAdaptorPtr() const { return _adaptorPtr; }
-	const StrategyPtrT &Internal::getStrategyPtr() const { return _strategyPtr; }
+	const ResultSetT	 *Internal::getResultSetPtr() const { return _resultSetPtr; }
+	const AdaptorPtrT	 &Internal::getAdaptorPtr() const { return _adaptorPtr; }
+	const StrategyPtrT	 &Internal::getStrategyPtr() const { return _strategyPtr; }
+	CustomUserAllocation *Internal::getUserAllocationPtr() const { return _userAllocationPtr; }
 
+	Internal::Internal() : _uniqueClassIdentity(++_globalStockPacketUniqueIdentifierCounter), _userAllocationPtr(nullptr) {}
+	Internal::~Internal() { delete _userAllocationPtr; }
 	void Internal::setResultSetPtr(const ResultSetT *resultSetPtr_) { _resultSetPtr = resultSetPtr_; }
 	void Internal::setAdaptorPtr(const AdaptorPtrT &adaptorPtr_) { _adaptorPtr = adaptorPtr_; }
 	void Internal::setStrategyPtr(const StrategyPtrT &strategyPtr_) { _strategyPtr = strategyPtr_; }
+	void Internal::setUserAllocationPtr(CustomUserAllocation *userAllocationPtr_) { _userAllocationPtr = userAllocationPtr_; }
 
 	bool			   OrderDetails::isIoc() const { return _ioc; }
 	Side			   OrderDetails::getSide() const { return _side; }
