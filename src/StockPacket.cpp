@@ -6,6 +6,7 @@
 
 #include "Lancelot/API/Adaptor/Adaptor.hpp"
 #include "Lancelot/API/Common/Common.hpp"
+#include "Lancelot/API/Strategy/Strategy.hpp"
 #include "Lancelot/Logger/Logger.hpp"
 
 namespace Lancelot::API {
@@ -77,6 +78,11 @@ namespace Lancelot::API {
 		}
 		setCurrentStatus(orderStatus);
 		return false;
+	}
+	void StockPacket::executionReport(OrderStatus orderStatus_) {
+		setPreviousStatus(getCurrentStatus());
+		setCurrentStatus(orderStatus_);
+		getStrategyPtr()->orderEvent(getUniqueClassIdentity());
 	}
 
 }  // namespace Lancelot::API

@@ -113,6 +113,7 @@ namespace Lancelot {
 			void setPreviousStatus(OrderStatus previousStatus_);
 
 			bool execute(int price_, int quantity_, OrderRequest request_);
+			void executionReport(OrderStatus orderStatus_);
 
 		private:
 			OrderRequest _lastRequest;
