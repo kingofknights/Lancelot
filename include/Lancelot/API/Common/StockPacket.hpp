@@ -101,7 +101,7 @@ namespace Lancelot {
 			std::string _clientCode;
 			std::string _algoCode;
 		};
-		class StockPacket : public Position, public Internal, public OrderDetails, std::enable_shared_from_this<StockPacket> {
+		class StockPacket : public Position, public Internal, public OrderDetails, public std::enable_shared_from_this<StockPacket> {
 		public:
 			explicit StockPacket();
 			[[nodiscard]] OrderRequest getLastRequest() const;
