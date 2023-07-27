@@ -8,6 +8,7 @@
 
 #include <memory>
 #include <string>
+#include <set>
 #include <unordered_map>
 
 namespace Lancelot {
@@ -26,7 +27,7 @@ namespace Lancelot {
 		public:
 			explicit Strategy(int strategy_);
 
-			virtual ~Strategy() = default;
+			virtual ~Strategy();
 
 			void paramEventManager(const StrategyParamT& param_);
 			void marketEventManager(int token_);
@@ -59,6 +60,9 @@ namespace Lancelot {
 			bool _activated;
 			int	 _strategy;
 			pthread_mutex_t _mutex;
+
+			using uniqueTokenT = std::set<int>;
+			uniqueTokenT _uniqueToken;
 		};
 	}  // namespace API
 }  // namespace Lancelot
