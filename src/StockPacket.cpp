@@ -82,7 +82,7 @@ namespace Lancelot::API {
 	void StockPacket::executionReport(OrderStatus orderStatus_) {
 		setPreviousStatus(getCurrentStatus());
 		setCurrentStatus(orderStatus_);
-		getStrategyPtr()->orderEvent(getUniqueClassIdentity());
+		getStrategyPtr()->orderEventManager(getUniqueClassIdentity());
 	}
 
 }  // namespace Lancelot::API

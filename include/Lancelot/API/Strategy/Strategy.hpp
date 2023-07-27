@@ -28,17 +28,13 @@ namespace Lancelot {
 
 			virtual ~Strategy() = default;
 
-			virtual void paramEvent(const StrategyParamT& param_) = 0;
-
-			virtual void marketEvent(int token_) = 0;
-
-			virtual void orderEvent(int uniqueID_) = 0;
-
-			virtual void stopEvent() = 0;
+			void paramEventManager(const StrategyParamT& param_);
+			void marketEventManager(int token_);
+			void orderEventManager(int uniqueID_);
+			void stopEventManager();
 
 			[[nodiscard]] bool activated() const;
-
-			void setActivated(bool activated_);
+			void			   setActivated(bool activated_);
 
 			template <class Child>
 			[[nodiscard]] static StrategyPtrT CreateInstance(int pf_, StrategyParamT strategyParameter_) {
@@ -46,18 +42,23 @@ namespace Lancelot {
 			}
 
 		protected:
+			virtual void paramEvent(const StrategyParamT& param_) = 0;
+			virtual void marketEvent(int token_)				  = 0;
+			virtual void orderEvent(int uniqueID_)				  = 0;
+			virtual void stopEvent()							  = 0;
+
 			void destroy();
 
 			StockPacketPtrT getStockPacket(int token_, Side side_, const std::string& client_, const std::string& algo_, int ioc_, bool needEvent_ = false);
 
 		private:
 			void registerForData(int token_);
-
 			void registerSelf();
 
 		private:
 			bool _activated;
 			int	 _strategy;
+			pthread_mutex_t _mutex;
 		};
 	}  // namespace API
 }  // namespace Lancelot
