@@ -7,8 +7,8 @@
 #pragma once
 
 #include <memory>
-#include <string>
 #include <set>
+#include <string>
 #include <unordered_map>
 
 namespace Lancelot {
@@ -37,6 +37,9 @@ namespace Lancelot {
 			[[nodiscard]] bool activated() const;
 			void			   setActivated(bool activated_);
 
+			[[nodiscard]] int getStrategy() const;
+			void			  setStrategy(int strategy_);
+
 			template <class Child>
 			[[nodiscard]] static StrategyPtrT CreateInstance(int pf_, StrategyParamT strategyParameter_) {
 				return std::make_shared<Child>(pf_, strategyParameter_);
@@ -59,6 +62,8 @@ namespace Lancelot {
 		private:
 			bool _activated;
 			int	 _strategy;
+
+		private:
 			pthread_mutex_t _mutex;
 
 			using uniqueTokenT = std::set<int>;
