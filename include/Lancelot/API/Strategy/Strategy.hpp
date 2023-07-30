@@ -25,20 +25,18 @@ namespace Lancelot {
 
 		class Strategy : public std::enable_shared_from_this<Strategy> {
 		public:
-			explicit Strategy(int strategy_);
+			explicit Strategy(int address_);
 
 			virtual ~Strategy();
 
 			void paramEventManager(const StrategyParamT& param_);
 			void marketEventManager(int token_);
-			void orderEventManager(int uniqueID_);
+			void orderEventManager(int uniqueClasIdentifier_);
 			void stopEventManager();
 
-			[[nodiscard]] bool activated() const;
-			void			   setActivated(bool activated_);
-
-			[[nodiscard]] int getStrategy() const;
-			void			  setStrategy(int strategy_);
+			[[nodiscard]] uint32_t getAddress() const;
+			[[nodiscard]] bool	   activated() const;
+			void				   setActivated(bool activated_);
 
 			template <class Child>
 			[[nodiscard]] static StrategyPtrT CreateInstance(int pf_, StrategyParamT strategyParameter_) {
@@ -48,7 +46,7 @@ namespace Lancelot {
 		protected:
 			virtual void paramEvent(const StrategyParamT& param_) = 0;
 			virtual void marketEvent(int token_)				  = 0;
-			virtual void orderEvent(int uniqueID_)				  = 0;
+			virtual void orderEvent(int uniqueClasIdentifier_)	  = 0;
 			virtual void stopEvent()							  = 0;
 
 			void destroy();
@@ -60,8 +58,8 @@ namespace Lancelot {
 			void registerSelf();
 
 		private:
-			bool _activated;
-			int	 _strategy;
+			bool	 _activated;
+			uint32_t _address;
 
 		private:
 			pthread_mutex_t _mutex;
