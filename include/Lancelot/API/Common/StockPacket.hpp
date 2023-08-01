@@ -29,20 +29,19 @@ namespace Lancelot {
 
 		class Position {
 		public:
-
 		private:
 		public:
-			[[nodiscard]] int	 getLastTradeQuantity() const;
-			[[nodiscard]] int	 getLastTradePrice() const;
-			[[nodiscard]] int	 getTotalTradeQuantity() const;
+			[[nodiscard]] int getLastTradeQuantity() const;
+			[[nodiscard]] int getLastTradePrice() const;
+			[[nodiscard]] int getTotalTradeQuantity() const;
 
 			void setLastTradeQuantity(int lastTradeQuantity_);
 			void setLastTradePrice(int lastTradePrice_);
 			void setTotalTradeQuantity(int totalTradeQuantity_);
 
 		private:
-			int _lastTradeQuantity  = 0;
-			int _lastTradePrice	   = 0;
+			int _lastTradeQuantity	= 0;
+			int _lastTradePrice		= 0;
 			int _totalTradeQuantity = 0;
 		};
 
@@ -79,13 +78,16 @@ namespace Lancelot {
 		public:
 			[[nodiscard]] bool isIoc() const;
 			[[nodiscard]] Side getSide() const;
+			[[nodiscard]] int  getToken() const;
 			[[nodiscard]] int  getPrice() const;
 			[[nodiscard]] int  getQuantity() const;
 			[[nodiscard]] long getOrderNumber() const;
 
 			[[nodiscard]] const std::string &getClientCode() const;
 			[[nodiscard]] const std::string &getAlgoCode() const;
+			[[nodiscard]] const std::string &getContractDescription() const;
 
+			void setToken(int token_);
 			void setSide(Side side_);
 			void setPrice(int price_);
 			void setQuantity(int quantity_);
@@ -93,11 +95,12 @@ namespace Lancelot {
 			void setOrderNumber(long orderNumber_);
 			void setClientCode(const std::string &clientCode_);
 			void setAlgoCode(const std::string &algoCode_);
+			void setContractDescription(const std::string &contractDescription_);
 
 		private:
 			bool _ioc;
 			Side _side;
-			int _token;
+			int	 _token;
 			int	 _price;
 			int	 _quantity;
 			long _orderNumber;
@@ -105,12 +108,6 @@ namespace Lancelot {
 			std::string _clientCode;
 			std::string _algoCode;
 			std::string _contractDescription;
-
-		public:
-			int				   getToken() const;
-			void			   setToken(int token_);
-			const std::string &getContractDescription() const;
-			void			   setContractDescription(const std::string &contractDescription_);
 		};
 		class StockPacket : public Position, public Internal, public OrderDetails, public std::enable_shared_from_this<StockPacket> {
 		public:
