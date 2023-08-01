@@ -29,18 +29,21 @@ namespace Lancelot {
 
 		class Position {
 		public:
-			[[nodiscard]] int getLastQuantity() const;
-			[[nodiscard]] int getLastPrice() const;
-			[[nodiscard]] int getTotalQuantity() const;
-
-			void setLastQuantity(int lastQuantity_);
-			void setLastPrice(int lastPrice_);
-			void setTotalQuantity(int totalQuantity_);
 
 		private:
-			int _lastQuantity  = 0;
-			int _lastPrice	   = 0;
-			int _totalQuantity = 0;
+		public:
+			[[nodiscard]] int	 getLastTradeQuantity() const;
+			[[nodiscard]] int	 getLastTradePrice() const;
+			[[nodiscard]] int	 getTotalTradeQuantity() const;
+
+			void setLastTradeQuantity(int lastTradeQuantity_);
+			void setLastTradePrice(int lastTradePrice_);
+			void setTotalTradeQuantity(int totalTradeQuantity_);
+
+		private:
+			int _lastTradeQuantity  = 0;
+			int _lastTradePrice	   = 0;
+			int _totalTradeQuantity = 0;
 		};
 
 		class Internal {
@@ -48,10 +51,10 @@ namespace Lancelot {
 			[[nodiscard]] int getUniqueClassIdentity() const;
 			[[nodiscard]] int getStrategyNumber() const;
 
-			[[nodiscard]] const ResultSetT	 *getResultSetPtr() const;
-			[[nodiscard]] const AdaptorPtrT	 &getAdaptorPtr() const;
-			[[nodiscard]] const StrategyPtrT &getStrategyPtr() const;
-			[[nodiscard]] CustomUserAllocation				 *getUserAllocationPtr() const;
+			[[nodiscard]] const ResultSetT	   *getResultSetPtr() const;
+			[[nodiscard]] const AdaptorPtrT	   &getAdaptorPtr() const;
+			[[nodiscard]] const StrategyPtrT   &getStrategyPtr() const;
+			[[nodiscard]] CustomUserAllocation *getUserAllocationPtr() const;
 
 			virtual ~Internal();
 			Internal();
@@ -94,12 +97,20 @@ namespace Lancelot {
 		private:
 			bool _ioc;
 			Side _side;
+			int _token;
 			int	 _price;
 			int	 _quantity;
 			long _orderNumber;
 
 			std::string _clientCode;
 			std::string _algoCode;
+			std::string _contractDescription;
+
+		public:
+			int				   getToken() const;
+			void			   setToken(int token_);
+			const std::string &getContractDescription() const;
+			void			   setContractDescription(const std::string &contractDescription_);
 		};
 		class StockPacket : public Position, public Internal, public OrderDetails, public std::enable_shared_from_this<StockPacket> {
 		public:

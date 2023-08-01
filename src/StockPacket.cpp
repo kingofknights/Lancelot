@@ -12,13 +12,14 @@
 namespace Lancelot::API {
 
 	inline static int _globalStockPacketUniqueIdentifierCounter = 1;
-	int				  Position::getLastQuantity() const { return _lastQuantity; }
-	int				  Position::getLastPrice() const { return _lastPrice; }
-	int				  Position::getTotalQuantity() const { return _totalQuantity; }
 
-	void Position::setLastQuantity(int lastQuantity_) { _lastQuantity = lastQuantity_; }
-	void Position::setLastPrice(int lastPrice_) { _lastPrice = lastPrice_; }
-	void Position::setTotalQuantity(int totalQuantity_) { _totalQuantity = totalQuantity_; }
+	int Position::getLastTradeQuantity() const { return _lastTradeQuantity; }
+	int Position::getLastTradePrice() const { return _lastTradePrice; }
+	int Position::getTotalTradeQuantity() const { return _totalTradeQuantity; }
+
+	void Position::setLastTradeQuantity(int lastTradeQuantity_) { _lastTradeQuantity = lastTradeQuantity_; }
+	void Position::setLastTradePrice(int lastTradePrice_) { _lastTradePrice = lastTradePrice_; }
+	void Position::setTotalTradeQuantity(int totalTradeQuantity_) { _totalTradeQuantity = totalTradeQuantity_; }
 
 	int Internal::getUniqueClassIdentity() const { return _uniqueClassIdentity; }
 	int Internal::getStrategyNumber() const { return _strategyNumber; }
@@ -37,21 +38,26 @@ namespace Lancelot::API {
 	void Internal::setStrategyPtr(const StrategyPtrT &strategyPtr_) { _strategyPtr = strategyPtr_; }
 	void Internal::setUserAllocationPtr(CustomUserAllocation *userAllocationPtr_) { _userAllocationPtr = userAllocationPtr_; }
 
-	bool			   OrderDetails::isIoc() const { return _ioc; }
-	Side			   OrderDetails::getSide() const { return _side; }
-	int				   OrderDetails::getPrice() const { return _price; }
-	int				   OrderDetails::getQuantity() const { return _quantity; }
-	long			   OrderDetails::getOrderNumber() const { return _orderNumber; }
+	bool OrderDetails::isIoc() const { return _ioc; }
+	Side OrderDetails::getSide() const { return _side; }
+	int	 OrderDetails::getPrice() const { return _price; }
+	int	 OrderDetails::getToken() const { return _token; }
+	int	 OrderDetails::getQuantity() const { return _quantity; }
+	long OrderDetails::getOrderNumber() const { return _orderNumber; }
+
 	const std::string &OrderDetails::getClientCode() const { return _clientCode; }
 	const std::string &OrderDetails::getAlgoCode() const { return _algoCode; }
+	const std::string &OrderDetails::getContractDescription() const { return _contractDescription; }
 
 	void OrderDetails::setSide(Side side_) { _side = side_; }
 	void OrderDetails::setIoc(bool ioc_) { _ioc = ioc_; }
+	void OrderDetails::setToken(int token_) { _token = token_; }
 	void OrderDetails::setPrice(int price_) { _price = price_; }
 	void OrderDetails::setQuantity(int quantity_) { _quantity = quantity_; }
 	void OrderDetails::setOrderNumber(long orderNumber_) { _orderNumber = orderNumber_; }
 	void OrderDetails::setClientCode(const std::string &clientCode_) { _clientCode = clientCode_; }
 	void OrderDetails::setAlgoCode(const std::string &algoCode_) { _algoCode = algoCode_; }
+	void OrderDetails::setContractDescription(const std::string &contractDescription_) { _contractDescription = contractDescription_; }
 
 	StockPacket::StockPacket() : _lastRequest(OrderRequest_NONE), _currentStatus(OrderStatus_NONE), _previousStatus(OrderStatus_NONE) {}
 	void StockPacket::setLastRequest(OrderRequest lastRequest_) { _lastRequest = lastRequest_; }
