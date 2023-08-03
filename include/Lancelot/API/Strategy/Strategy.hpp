@@ -56,6 +56,7 @@ namespace Lancelot {
 		private:
 			void registerForData(int token_);
 			void registerSelf();
+			void updateArthur(const StockPacketPtrT& stockPacket_);
 
 		private:
 			bool	 _activated;
@@ -66,6 +67,8 @@ namespace Lancelot {
 
 			using uniqueTokenT = std::set<int>;
 			uniqueTokenT _uniqueToken;
+
+			friend class StockPacket;
 		};
 	}  // namespace API
 }  // namespace Lancelot
