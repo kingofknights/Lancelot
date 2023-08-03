@@ -89,6 +89,7 @@ namespace Lancelot::API {
 		setPreviousStatus(getCurrentStatus());
 		setCurrentStatus(orderStatus_);
 		getStrategyPtr()->orderEventManager(getUniqueClassIdentity());
+		getStrategyPtr()->updateArthur(shared_from_this());
 	}
 
 }  // namespace Lancelot::API
