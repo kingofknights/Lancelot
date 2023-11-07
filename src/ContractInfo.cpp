@@ -11,7 +11,7 @@
 #include "Lancelot/ContractInfo/StoreProcedures.hpp"
 #include "Lancelot/Enums.hpp"
 #include "Lancelot/Structure.hpp"
-#include "Gawain.hpp"
+#include "Lancelot/Logger/Logger.hpp"
 
 namespace Lancelot {
 

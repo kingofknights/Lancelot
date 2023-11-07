@@ -1,7 +1,7 @@
 #include "Lancelot/ContractInfo/ContractFetcher.hpp"
 
 #include <SQLiteCpp/SQLiteCpp.h>
-#include <Gawain.hpp>
+#include "Lancelot/Logger/Logger.hpp"
 
 namespace Lancelot {
 	ContractFetcher::ContractFetcher(const std::string& name_) : _database(new SQLite::Database(name_, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE)) { printMetaData(name_); }
