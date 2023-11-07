@@ -1,3 +1,6 @@
 [submodule "repo/xcd"]
 	path = repo/xcd
 	url = https://github.com/kingofknights/xcd.git
+[submodule "repo/Gawain"]
+	path = repo/Gawain
+	url = https://github.com/kingofknights/Gawain.git

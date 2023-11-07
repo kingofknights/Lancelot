@@ -11,9 +11,9 @@ set(CMAKE_ENABLE_EXPORTS ON)
 find_package(SQLiteCpp CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 add_subdirectory(repo/xcd)
+add_subdirectory(repo/Gawain)
 
 add_library(${PROJECT_NAME}
-        include/Lancelot/Logger/Logger.hpp
         include/Lancelot/ContractInfo/StoreProcedures.hpp
         include/Lancelot/ContractInfo/ContractFetcher.hpp
         include/Lancelot/ContractInfo/ContractInfo.hpp
@@ -30,16 +30,5 @@ add_library(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 target_include_directories(${PROJECT_NAME} PRIVATE repo/xcd)
-target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt SQLiteCpp xcd)
-
-add_library(${PROJECT_NAME}_API
-        include/Lancelot/API/Common/Common.hpp
-        include/Lancelot/API/Common/StockPacket.hpp
-        include/Lancelot/API/Adaptor/Adaptor.hpp
-        include/Lancelot/API/Strategy/Strategy.hpp
-        include/LancelotAPI.hpp
-        src/StockPacket.cpp
-        src/Common.cpp
-        )
-target_include_directories(${PROJECT_NAME}_API PRIVATE include)
-target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)
+target_include_directories(${PROJECT_NAME} PRIVATE repo/Gawain/include)
+target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt SQLiteCpp xcd Gawain)
