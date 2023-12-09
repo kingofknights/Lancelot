@@ -19,7 +19,7 @@ CommunicationT Encrypt(const std::string_view order_, uint32_t uid_, uint32_t qu
 
     xcdCompress(reinterpret_cast<const unsigned char*>(order_.data()), static_cast<int>(order_.length()), encryptMessage.data(), &encryptMessageLength);
     CommunicationT communication{ ._user = uid_, ._query = query_, ._encryptLength = encryptMessageLength };
-    std::memcpy(communication._encryptMessage, encryptMessage.data(), encryptMessageLength);
+    std::memcpy(communication._encryptMessage.data(), encryptMessage.data(), encryptMessageLength);
     return communication;
 }
 

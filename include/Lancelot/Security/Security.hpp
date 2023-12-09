@@ -6,8 +6,8 @@
 #define LANCELOT_INCLUDE_LANCELOT_SECURITY_SECURITY_HPP_
 #pragma once
 
-#include <string_view>
 #include <cstdint>
+#include <string_view>
 
 namespace Lancelot {
 struct CommunicationT;
