@@ -7,13 +7,14 @@
 #pragma once
 
 #include <string_view>
+#include <cstdint>
 
 namespace Lancelot {
-	struct CommunicationT;
+struct CommunicationT;
 
-	CommunicationT Encrypt(std::string_view order_, uint32_t uid_, uint32_t query_);
+[[nodiscard]] CommunicationT Encrypt(const std::string_view order_, uint32_t uid_, uint32_t query_);
 
-	int Decrypt(const unsigned char* encryptMessage_, int encryptLength_, unsigned char* decryptMessage_, int* decryptLength_);
-}  // namespace Lancelot
+int Decrypt(const unsigned char* encryptMessage_, int encryptLength_, unsigned char* decryptMessage_, int* decryptLength_);
+}// namespace Lancelot
 
-#endif	// LANCELOT_INCLUDE_LANCELOT_SECURITY_SECURITY_HPP_
+#endif// LANCELOT_INCLUDE_LANCELOT_SECURITY_SECURITY_HPP_

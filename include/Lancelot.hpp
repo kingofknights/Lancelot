@@ -9,4 +9,4 @@
 #include "Lancelot/Security/Security.hpp"
 #include "Lancelot/Structure.hpp"
 #include "Lancelot/Logger/Logger.hpp"
-#endif	// LANCELOT_INCLUDE_LANCELOT_HPP
+#endif// LANCELOT_INCLUDE_LANCELOT_HPP

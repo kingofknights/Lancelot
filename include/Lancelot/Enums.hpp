@@ -8,98 +8,98 @@
 
 #include <string>
 
-#define JSON_PARAMS		   "params"
-#define JSON_ID			   "uniqueId"
-#define JSON_TOKEN		   "token"
-#define JSON_PRICE		   "price"
-#define JSON_QUANTITY	   "quantity"
-#define JSON_CLIENT		   "client"
-#define JSON_SIDE		   "side"
-#define JSON_ORDER_ID	   "order_id"
-#define JSON_ARGUMENTS	   "arguments"
-#define JSON_PF_NUMBER	   "pf"
-#define JSON_UNIQUE_ID	   "unique_id"
-#define JSON_STRATEGY_NAME "name"
-#define JSON_ORDER_TYPE	   "type"
-#define JSON_TIME		   "time"
-#define JSON_FILL_QUANTITY "fill_quantity"
-#define JSON_FILL_PRICE	   "fill_price"
-#define JSON_REMAINING	   "remaining"
-#define JSON_MESSAGE	   "message"
+inline static constexpr char JSON_PARAMS[]        = "params";
+inline static constexpr char JSON_ID[]            = "uniqueId";
+inline static constexpr char JSON_TOKEN[]         = "token";
+inline static constexpr char JSON_PRICE[]         = "price";
+inline static constexpr char JSON_QUANTITY[]      = "quantity";
+inline static constexpr char JSON_CLIENT[]        = "client";
+inline static constexpr char JSON_SIDE[]          = "side";
+inline static constexpr char JSON_ORDER_ID[]      = "order_id";
+inline static constexpr char JSON_ARGUMENTS[]     = "arguments";
+inline static constexpr char JSON_PF_NUMBER[]     = "pf";
+inline static constexpr char JSON_UNIQUE_ID[]     = "unique_id";
+inline static constexpr char JSON_STRATEGY_NAME[] = "name";
+inline static constexpr char JSON_ORDER_TYPE[]    = "type";
+inline static constexpr char JSON_TIME[]          = "time";
+inline static constexpr char JSON_FILL_QUANTITY[] = "fill_quantity";
+inline static constexpr char JSON_FILL_PRICE[]    = "fill_price";
+inline static constexpr char JSON_REMAINING[]     = "remaining";
+inline static constexpr char JSON_MESSAGE[]       = "message";
 
 namespace Lancelot {
 
-	enum Exchange : int {
-		Exchange_NSE_FUTURE = 0,
-		Exchange_NSE_EQUITY,
-		Exchange_NSE_CURRENCY,
-		Exchange_BSE_FUTURE,
-		Exchange_BSE_CURRENCY,
-		Exchange_END
-	};
+enum Exchange : std::uint8_t {
+    Exchange_NSE_FUTURE = 0,
+    Exchange_NSE_EQUITY,
+    Exchange_NSE_CURRENCY,
+    Exchange_BSE_FUTURE,
+    Exchange_BSE_CURRENCY,
+    Exchange_END
+};
 
-	enum Instrument : int {
-		Instrument_FUTURE = 0,
-		Instrument_OPTION,
-		Instrument_EQUITY,
-		Instrument_OTHER
-	};
+enum Instrument : std::uint8_t {
+    Instrument_FUTURE = 0,
+    Instrument_OPTION,
+    Instrument_EQUITY,
+    Instrument_OTHER
+};
 
-	enum OptionType : int {
-		OptionType_NONE = 0,
-		OptionType_CALL,
-		OptionType_PUT,
-	};
+enum OptionType : std::uint8_t {
+    OptionType_NONE = 0,
+    OptionType_CALL,
+    OptionType_PUT,
+};
 
-	enum Side : int {
-		Side_BUY = 0,
-		Side_SELL
-	};
+enum Side : std::uint8_t {
+    Side_BUY = 0,
+    Side_SELL
+};
 
-	enum RequestType : int {
-		RequestType_LOGIN = 0,
-		// ORDER
-		RequestType_NEW,
-		RequestType_MODIFY,
-		RequestType_CANCEL,
-		// STRATEGY
-		RequestType_APPLY,
-		RequestType_SUBSCRIBE,
-		RequestType_UNSUBSCRIBE,
-		RequestType_SUBSCRIBE_APPLY,
-	};
+enum RequestType : std::uint8_t {
+    RequestType_LOGIN = 0,
+    // ORDER
+    RequestType_NEW,
+    RequestType_MODIFY,
+    RequestType_CANCEL,
+    // STRATEGY
+    RequestType_APPLY,
+    RequestType_SUBSCRIBE,
+    RequestType_UNSUBSCRIBE,
+    RequestType_SUBSCRIBE_APPLY,
+};
 
-	enum ResponseType : int {
-		// ORDER
-		ResponseType_PLACED = 0,
-		ResponseType_NEW,
-		ResponseType_REPLACED,
-		ResponseType_CANCELLED,
-		ResponseType_NEW_REJECT,
-		ResponseType_REPLACE_REJECT,
-		ResponseType_CANCEL_REJECT,
-		ResponseType_PARTIAL_FILLED,
-		ResponseType_FILLED,
+enum ResponseType : std::uint8_t {
+    // ORDER
+    ResponseType_PLACED = 0,
+    ResponseType_NEW,
+    ResponseType_REPLACED,
+    ResponseType_CANCELLED,
+    ResponseType_NEW_REJECT,
+    ResponseType_REPLACE_REJECT,
+    ResponseType_CANCEL_REJECT,
+    ResponseType_PARTIAL_FILLED,
+    ResponseType_FILLED,
 
-		// STRATEGY
-		ResponseType_PENDING,
-		ResponseType_SUBCRIBED,
-		ResponseType_APPLIED,
-		ResponseType_UNSUBSCRIBED,
-		ResponseType_TERMINATED,
-		ResponseType_UPDATES,
-		ResponseType_EXCHANGE_DISCONNECT,
+    // STRATEGY
+    ResponseType_PENDING,
+    ResponseType_SUBCRIBED,
+    ResponseType_APPLIED,
+    ResponseType_UNSUBSCRIBED,
+    ResponseType_TERMINATED,
+    ResponseType_UPDATES,
+    ResponseType_EXCHANGE_DISCONNECT,
 
-		// TRACKER
-		ResponseType_TRACKER,
-	};
+    // TRACKER
+    ResponseType_TRACKER,
+};
 
-	std::string toString(Exchange exchangeCode_);
-	std::string toString(Instrument instrument_);
-	std::string toString(OptionType optionType_);
-	std::string toString(Side side_);
-	std::string toString(RequestType requestType_);
-	std::string toString(ResponseType responseType_);
+std::string toString(Exchange exchangeCode_);
+std::string toString(Instrument instrument_);
+std::string toString(OptionType optionType_);
+std::string toString(Side side_);
+std::string toString(RequestType requestType_);
+std::string toString(ResponseType responseType_);
 
-}  // namespace Lancelot
-#endif	// LANCELOT_INCLUDE_ENUMS_HPP
+}// namespace Lancelot
+#endif// LANCELOT_INCLUDE_ENUMS_HPP
