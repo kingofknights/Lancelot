@@ -11,8 +11,6 @@
 #include "Lancelot/Structure.hpp"
 
 namespace Lancelot {
-using EncryptMessageT = std::array<unsigned char, ENCRYPT_MESSAGE_MAX_LENGTH>;
-
 CommunicationT Encrypt(const std::string_view order_, uint32_t uid_, uint32_t query_) {
     int             encryptMessageLength = 0;
     EncryptMessageT encryptMessage;
