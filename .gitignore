@@ -43,6 +43,8 @@ Features
 .vcode
 .vs
 
+.cache/
+
 # Temp
 /include/Lancelot/Database
 /include/Lancelot/Database/DatabaseHandler.hpp

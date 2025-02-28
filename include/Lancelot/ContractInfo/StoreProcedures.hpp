@@ -167,9 +167,15 @@ inline constexpr char GetFuture_[] =
     " AND T1.ExpiryDate >= T2.ExpiryDate"
     " ORDER BY T1.ExpiryDate";
 
+inline constexpr char InsertResultSetRow_[] =
+    "INSERT INTO ResultSet (Token, StrikePrice, InstType, Symbol, ExpiryDate, "
+    "Description, OptionType, Name, Exchange, Segment) "
+    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 inline constexpr char GetClientCode_[]      = "SELECT Exchange, ClientCode FROM ManageClientCode WHERE  UserId = {}";
 inline constexpr char GetStrategyList_[]    = "SELECT Name FROM Strategy";
 inline constexpr char GetStrategyColumns_[] = "SELECT data FROM Strategy WHERE Name='{}'";
 inline constexpr char GetResultSet_[]       = "SELECT * FROM ResultSet;";
+inline constexpr char DeleteResultSet_[]    = "DROP TABLE IF EXISTS ResultSet;";
 
-#endif// LANCELOT_INCLUDE_STORE_PROCEDURES_HPP
+#endif  // LANCELOT_INCLUDE_STORE_PROCEDURES_HPP
